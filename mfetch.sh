@@ -57,7 +57,7 @@ function center_text() {
     IFS=$'\n'$'\r'
     for line in $(echo -e $text); do
 
-        line_length=`echo $line | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" | wc -c`
+        line_length=`echo $line | sed -r "s/\x1B\[([0-9]{1,1}(;[0-9]{1,2})?)?[m|K]//g" | wc -c`
         half_of_line_length=`expr $line_length / 2`
         is_odd=`expr $line_length % 2 == 1`
         half_of_line_length=`expr $half_of_line_length + $is_odd`
@@ -100,77 +100,77 @@ function ascii_art() {
 
     case "$os_name" in
         "openSUSE Linux" | "openSUSE Tumbleweed" | "openSUSE")
-            center_text "${GREEN_BG}                ${RESET_BG}"
-            center_text "${GREEN_BG}      ,___      ${RESET_BG}"
-            center_text "${GREEN_BG}    _| () \     ${RESET_BG}"
-            center_text "${GREEN_BG}   /    --'     ${RESET_BG}"
-            center_text "${GREEN_BG}   \ ___^/      ${RESET_BG}"
-            center_text "${GREEN_BG}                ${RESET_BG}";;
+            echo -e "${GREEN_BG}                ${RESET_BG}"
+            echo -e "${GREEN_BG}      ,___      ${RESET_BG}"
+            echo -e "${GREEN_BG}    _| () \     ${RESET_BG}"
+            echo -e "${GREEN_BG}   /    --'     ${RESET_BG}"
+            echo -e "${GREEN_BG}   \ ___^/      ${RESET_BG}"
+            echo -e "${GREEN_BG}                ${RESET_BG}";;
         "Arch Linux")
-            center_text "${CYAN_BG}                ${RESET_BG}"
-            center_text "${CYAN_BG}                ${RESET_BG}"
-            center_text "${CYAN_BG}       /\       ${RESET_BG}"
-            center_text "${CYAN_BG}      /  \      ${RESET_BG}"
-            center_text "${CYAN_BG}     /_/\_\     ${RESET_BG}"
-            center_text "${CYAN_BG}                ${RESET_BG}";;
+            echo -e "${CYAN_BG}                ${RESET_BG}"
+            echo -e "${CYAN_BG}                ${RESET_BG}"
+            echo -e "${CYAN_BG}       /\       ${RESET_BG}"
+            echo -e "${CYAN_BG}      /  \      ${RESET_BG}"
+            echo -e "${CYAN_BG}     /_/\_\     ${RESET_BG}"
+            echo -e "${CYAN_BG}                ${RESET_BG}";;
         "Alpine Linux")
-            center_text "${BLUE_BG}                ${RESET_BG}"
-            center_text "${BLUE_BG}                ${RESET_BG}"
-            center_text "${BLUE_BG}      /\        ${RESET_BG}"
-            center_text "${BLUE_BG}     // \/\     ${RESET_BG}"
-            center_text "${BLUE_BG}    //   \ \    ${RESET_BG}"
-            center_text "${BLUE_BG}                ${RESET_BG}";;
+            echo -e "${BLUE_BG}                ${RESET_BG}"
+            echo -e "${BLUE_BG}                ${RESET_BG}"
+            echo -e "${BLUE_BG}      /\        ${RESET_BG}"
+            echo -e "${BLUE_BG}     // \/\     ${RESET_BG}"
+            echo -e "${BLUE_BG}    //   \ \    ${RESET_BG}"
+            echo -e "${BLUE_BG}                ${RESET_BG}";;
         "Bedrock Linux")
-            center_text "${WHITE_BG}                ${RESET_BG}"
-            center_text "${WHITE_BG}    __          ${RESET_BG}"
-            center_text "${WHITE_BG}    \ \___      ${RESET_BG}"
-            center_text "${WHITE_BG}     \  _ \     ${RESET_BG}"
-            center_text "${WHITE_BG}      \___/     ${RESET_BG}"
-            center_text "${WHITE_BG}                ${RESET_BG}";;
+            echo -e "${WHITE_BG}                ${RESET_BG}"
+            echo -e "${WHITE_BG}    __          ${RESET_BG}"
+            echo -e "${WHITE_BG}    \ \___      ${RESET_BG}"
+            echo -e "${WHITE_BG}     \  _ \     ${RESET_BG}"
+            echo -e "${WHITE_BG}      \___/     ${RESET_BG}"
+            echo -e "${WHITE_BG}                ${RESET_BG}";;
         "Debian Linux")
-            center_text "${RED_BG}                ${RESET_BG}"
-            center_text "${RED_BG}        __      ${RESET_BG}"
-            center_text "${RED_BG}     '/  .\'    ${RESET_BG}"
-            center_text "${RED_BG}     |  (_'     ${RESET_BG}"
-            center_text "${RED_BG}      \         ${RESET_BG}"
-            center_text "${RED_BG}                ${RESET_BG}";;
+            echo -e "${RED_BG}                ${RESET_BG}"
+            echo -e "${RED_BG}        __      ${RESET_BG}"
+            echo -e "${RED_BG}     '/  .\'    ${RESET_BG}"
+            echo -e "${RED_BG}     |  (_'     ${RESET_BG}"
+            echo -e "${RED_BG}      \         ${RESET_BG}"
+            echo -e "${RED_BG}                ${RESET_BG}";;
         "Endeavouros Linux")
-            center_text "${MAGENTA_BG}                ${RESET_BG}"
-            center_text "${MAGENTA_BG}        __      ${RESET_BG}"
-            center_text "${MAGENTA_BG}       /  \     ${RESET_BG}"
-            center_text "${MAGENTA_BG}     /     |    ${RESET_BG}"
-            center_text "${MAGENTA_BG}    '_____/     ${RESET_BG}"
-            center_text "${MAGENTA_BG}                ${RESET_BG}";;
+            echo -e "${MAGENTA_BG}                ${RESET_BG}"
+            echo -e "${MAGENTA_BG}        __      ${RESET_BG}"
+            echo -e "${MAGENTA_BG}       /  \     ${RESET_BG}"
+            echo -e "${MAGENTA_BG}     /     |    ${RESET_BG}"
+            echo -e "${MAGENTA_BG}    '_____/     ${RESET_BG}"
+            echo -e "${MAGENTA_BG}                ${RESET_BG}";;
         "Manjaro Linux")
-            center_text "${GREEN_BG}                ${RESET_BG}"
-            center_text "${GREEN_BG}    ,___,,_,    ${RESET_BG}"
-            center_text "${GREEN_BG}    | ,_|| |    ${RESET_BG}"
-            center_text "${GREEN_BG}    | |  | |    ${RESET_BG}"
-            center_text "${GREEN_BG}    |_|__|_|    ${RESET_BG}"
-            center_text "${GREEN_BG}                ${RESET_BG}";;
+            echo -e "${GREEN_BG}                ${RESET_BG}"
+            echo -e "${GREEN_BG}    ,___,,_,    ${RESET_BG}"
+            echo -e "${GREEN_BG}    | ,_|| |    ${RESET_BG}"
+            echo -e "${GREEN_BG}    | |  | |    ${RESET_BG}"
+            echo -e "${GREEN_BG}    |_|__|_|    ${RESET_BG}"
+            echo -e "${GREEN_BG}                ${RESET_BG}";;
         "Ubuntu Linux")
-            center_text "${RED_BG}                ${RESET_BG}"
-            center_text "${RED_BG}       __       ${RESET_BG}"
-            center_text "${RED_BG}    () -- ()    ${RESET_BG}"
-            center_text "${RED_BG}    | |  | |    ${RESET_BG}"
-            center_text "${RED_BG}     \ -- /     ${RESET_BG}"
-            center_text "${RED_BG}       ''       ${RESET_BG}";;
+            echo -e "${RED_BG}                ${RESET_BG}"
+            echo -e "${RED_BG}       __       ${RESET_BG}"
+            echo -e "${RED_BG}    () -- ()    ${RESET_BG}"
+            echo -e "${RED_BG}    | |  | |    ${RESET_BG}"
+            echo -e "${RED_BG}     \ -- /     ${RESET_BG}"
+            echo -e "${RED_BG}       ''       ${RESET_BG}";;
         "MacOS Big Sur" | "MacOS Monterey" | "MacOS catalina" | "macOS high-sierra" | "macOS Mojave" | "macOS mountain lion" | "macOS mojave" | "macOS big sur" | "macOS catalina" | "macOS mojave" | "macOS yosemite")
-            center_text "${GREEN_BG}               ${RESET_BG}"
-            center_text "${GREEN_BG}     _//_      ${RESET_BG}"
-            center_text "${GREEN_BG}   /  '' \     ${RESET_BG}"
-            center_text "${GREEN_BG}   |    (      ${RESET_BG}"
-            center_text "${GREEN_BG}    \____/     ${RESET_BG}"
-            center_text "${GREEN_BG}               ${RESET_BG}";;
+            echo -e "${GREEN_BG}               ${RESET_BG}"
+            echo -e "${GREEN_BG}     _//_      ${RESET_BG}"
+            echo -e "${GREEN_BG}   /  '' \     ${RESET_BG}"
+            echo -e "${GREEN_BG}   |    (      ${RESET_BG}"
+            echo -e "${GREEN_BG}    \____/     ${RESET_BG}"
+            echo -e "${GREEN_BG}               ${RESET_BG}";;
         *)
-            center_text "${WHITE_BG}                ${RESET_BG}"
-            center_text "${WHITE_BG}    /\ _ /\     ${RESET_BG}"
-            center_text "${WHITE_BG}  =( > w < )=_  ${RESET_BG}"
-            center_text "${WHITE_BG}    )  v  (_/ | ${RESET_BG}"
-            center_text "${WHITE_BG}   ( _\|/_ )_/  ${RESET_BG}"
-            center_text "${WHITE_BG}                ${RESET_BG}";;
+            echo -e "${WHITE_BG}                ${RESET_BG}"
+            echo -e "${WHITE_BG}    /\ _ /\     ${RESET_BG}"
+            echo -e "${WHITE_BG}  =( > w < )=_  ${RESET_BG}"
+            echo -e "${WHITE_BG}    )  v  (_/ | ${RESET_BG}"
+            echo -e "${WHITE_BG}   ( _\|/_ )_/  ${RESET_BG}"
+            echo -e "${WHITE_BG}                ${RESET_BG}";;
     esac
-    center_text "${RESET_BG}             ${RESET_BG}"
+    echo -e "${RESET_BG}             ${RESET_BG}"
 }
 
 
@@ -185,9 +185,9 @@ function show_screen_resolutions() {
     for screen in $screens; do
         resolution=$(xrandr | grep -A1 "$screen" | grep '*' | awk '{print $1}')
         if [ "$show_labels" = true ]; then
-            center_text "${BLUE}${RESOL_ICO} $screen: ${WHITE} $resolution"
+            echo -e "${BLUE}${RESOL_ICO} $screen: ${WHITE} $resolution"
         else
-            center_text "${BLUE}${RESOL_ICO} ${WHITE} $resolution"
+            echo -e "${BLUE}${RESOL_ICO} ${WHITE} $resolution"
         fi
     done
 }
@@ -196,9 +196,9 @@ function ip_info() {
     IP=$(curl --silent ifconfig.me)
 
     if [ "$show_labels" = true ]; then
-        center_text "${BLUE}${IP_ICO} IP: ${WHITE}$IP"
+        echo -e "${BLUE}${IP_ICO} IP: ${WHITE}$IP"
     else
-        center_text "${BLUE}${IP_ICO}  ${WHITE}$IP"
+        echo -e "${BLUE}${IP_ICO}  ${WHITE}$IP"
     fi
 }
 
@@ -206,9 +206,9 @@ function cpu_info() {
     local cpu_percent
     cpu_percent=$(top -b -n 1 | grep "Cpu(s)" | awk '{print $2}')
     if [ "$show_labels" = true ]; then
-        center_text "${BLUE}${CPU} CPU: ${WHITE}$(cat /proc/cpuinfo | grep 'model name' | uniq | cut -d: -f2 | awk '{print $5}') - $cpu_percent"
+        echo -e "${BLUE}${CPU} CPU: ${WHITE}$(cat /proc/cpuinfo | grep 'model name' | uniq | cut -d: -f2 | awk '{print $5}') - $cpu_percent"
     else
-        center_text "${BLUE}${CPU}  ${WHITE}$(cat /proc/cpuinfo | grep 'model name' | uniq | cut -d: -f2 | awk '{print $5}') - $cpu_percent"
+        echo -e "${BLUE}${CPU}  ${WHITE}$(cat /proc/cpuinfo | grep 'model name' | uniq | cut -d: -f2 | awk '{print $5}') - $cpu_percent"
     fi
 }
 
@@ -218,9 +218,9 @@ function memory_info() {
     total_mem=$(free | grep Mem | awk '{print $2}')
     used_mem=$(free | grep Mem | awk '{print $3}')
     if [ "$show_labels" = true ]; then
-        center_text "${BLUE}${RAM} RAM: ${WHITE}$((used_mem/1024/1024)) GB / $((total_mem/1024/1024)) GB - $((used_mem * 100 / total_mem))"
+        echo -e "${BLUE}${RAM} RAM: ${WHITE}$((used_mem/1024/1024)) GB / $((total_mem/1024/1024)) GB - $((used_mem * 100 / total_mem))"
     else
-        center_text "${BLUE}${RAM}  ${WHITE}$((used_mem/1024/1024)) GB / $((total_mem/1024/1024)) GB - $((used_mem * 100 / total_mem))"
+        echo -e "${BLUE}${RAM}  ${WHITE}$((used_mem/1024/1024)) GB / $((total_mem/1024/1024)) GB - $((used_mem * 100 / total_mem))"
     fi
 }
 
@@ -229,16 +229,15 @@ function user_info() {
     local hostname
     username=$(whoami)
     hostname=$(hostname)
-    center_text "${BLUE}${USER} $username@$hostname${WHITE}"
-    printf "\n"
+    echo -e "${BLUE}${USER} $username@${WHITE}$hostname${WHITE}"
 }
 
 function gpu_info() {
     if command -v lspci &> /dev/null; then
         if [ "$show_labels" = true ]; then
-            center_text "${BLUE}${GPU} GPU: ${WHITE}$(lspci | grep -i vga | cut -d: -f3- | sed 's/^.*\[\(.*\)\].*$/\1/')"
+            echo -e "${BLUE}${GPU} GPU: ${WHITE}$(lspci | grep -i vga | cut -d: -f3- | sed 's/^.*\[\(.*\)\].*$/\1/')"
         else
-            center_text "${BLUE}${GPU}  ${WHITE}$(lspci | grep -i vga | cut -d: -f3- | sed 's/^.*\[\(.*\)\].*$/\1/')"
+            echo -e "${BLUE}${GPU}  ${WHITE}$(lspci | grep -i vga | cut -d: -f3- | sed 's/^.*\[\(.*\)\].*$/\1/')"
         fi
     else
         echo "Error: lspci command not found."
@@ -255,41 +254,41 @@ function disk_info() {
     disk_size=$(df -h / | grep / | awk '{print $2}')
 
     if [ "$show_labels" = true ]; then
-        center_text "${BLUE}${DISK} Disk: ${WHITE}$disk_use/$disk_size - $disk_usage"
+        echo -e "${BLUE}${DISK} Disk: ${WHITE}$disk_use/$disk_size - $disk_usage"
     else
-        center_text "${BLUE}${DISK}  ${WHITE}$disk_use/$disk_size - $disk_usage"
+        echo -e "${BLUE}${DISK}  ${WHITE}$disk_use/$disk_size - $disk_usage"
     fi
 }
 
 function kernel_info() {
     if [ "$show_labels" = true ]; then
-        center_text "${BLUE}${KERNEL} Kernel: ${WHITE}$(uname -r)"
+        echo -e "${BLUE}${KERNEL} Kernel: ${WHITE}$(uname -r)"
     else
-        center_text "${BLUE}${KERNEL}  ${WHITE}$(uname -r)"
+        echo -e "${BLUE}${KERNEL}  ${WHITE}$(uname -r)"
     fi
 }
 
 function os_info() {
     if [ "$show_labels" = true ]; then
-        center_text "${BLUE}${OS} OS: ${WHITE}$(lsb_release -d | cut -f2)"
+        echo -e "${BLUE}${OS} OS: ${WHITE}$(lsb_release -d | cut -f2)"
     else
-        center_text "${BLUE}${OS}  ${WHITE}$(lsb_release -d | cut -f2)"
+        echo -e "${BLUE}${OS}  ${WHITE}$(lsb_release -d | cut -f2)"
     fi
 }
 
 function shell_info() {
     if [ "$show_labels" = true ]; then
-        center_text "${BLUE}${SHELL_ICO} Shell: ${WHITE}$SHELL"
+        echo -e "${BLUE}${SHELL_ICO} Shell: ${WHITE}$SHELL"
     else
-        center_text "${BLUE}${SHELL_ICO}  ${WHITE}$SHELL"
+        echo -e "${BLUE}${SHELL_ICO}  ${WHITE}$SHELL"
     fi
 }
 
 function wm_info() {
     if [ "$show_labels" = true ]; then
-        center_text "${BLUE}${WM} WM: ${WHITE}$(echo $XDG_CURRENT_DESKTOP)"
+        echo -e "${BLUE}${WM} WM: ${WHITE}$(echo $XDG_CURRENT_DESKTOP)"
     else
-        center_text "${BLUE}${WM}  ${WHITE}$(echo $XDG_CURRENT_DESKTOP)"
+        echo -e "${BLUE}${WM}  ${WHITE}$(echo $XDG_CURRENT_DESKTOP)"
     fi
 }
 
@@ -303,14 +302,15 @@ function uptime_info() {
     local minutes=$(( (uptime_seconds % 3600) / 60 ))
 
     if [ "$show_labels" = true ]; then
-        center_text "${BLUE}${UPTIME} Uptime: ${WHITE}$((days))d $((hours))h $((minutes))m"
+        echo -e "${BLUE}${UPTIME} Uptime: ${WHITE}$((days))d $((hours))h $((minutes))m"
     else
-        center_text "${BLUE}${UPTIME}  ${WHITE}$((days))d $((hours))h $((minutes))m"
+        echo -e "${BLUE}${UPTIME}  ${WHITE}$((days))d $((hours))h $((minutes))m"
     fi
 }
 
 function colors_info() {
-    center_text "${BLACK_BG}    ${RED_BG}    ${GREEN_BG}    ${BLUE_BG}    ${CYAN_BG}    ${WHITE_BG}    ${RESET_BG}"
+    echo -e "\n"
+    echo -e "${RED}⬤ ${GREEN}⬤ ${BLUE}⬤ ${CYAN}⬤ ${WHITE}⬤ ${RESET}"
     printf "\n"
 }
 
@@ -324,8 +324,8 @@ echo -e "░ ▒░   ░  ░ ▒ ░    ░░ ▒░ ░ ▒ ░░   ░ ░
 echo -e "░  ░      ░ ░       ░ ░  ░   ░      ░  ▒    ▒ ░▒░ ░"
 echo -e "░      ░    ░ ░       ░    ░      ░         ░  ░░ ░"
 echo -e "       ░              ░  ░        ░ ░       ░  ░  ░"
-echo -e "                                  ░         ${GREEN}"       
-    echo "Usage: $0 [--labels] [--logo] [--cpu] [--ram] [--gpu] [--disk] [--ip] [--os] [--shell] [--wm] [--uptime] [--kernel] [--user] [--help] [--colors] [--resol] [--song]"
+echo -e "                                  ░         ${BLUE}"       
+    echo -e "Usage: $0 \n\n    [--labels]\n    [--logo]\n    [--cpu]\n    [--ram]\n    [--gpu]\n    [--disk]\n    [--ip]\n    [--os]\n    [--shell]\n    [--wm]\n    [--uptime]\n    [--kernel]\n    [--user]\n    [--help]\n    [--colors]\n    [--resol]\n    [--song]"
 }
 
 function package_manager_info() {
@@ -353,9 +353,9 @@ function package_manager_info() {
     fi
 
     if [ "$show_labels" = true ]; then
-        center_text "${BLUE}${PKGS} PKGS: ${WHITE}$package_count - $package_manager"
+        echo -e "${BLUE}${PKGS} PKGS: ${WHITE}$package_count - $package_manager"
     else
-        center_text "${BLUE}${PKGS}  ${WHITE}$package_count - $package_manager"
+        echo -e "${BLUE}${PKGS}  ${WHITE}$package_count - $package_manager"
     fi
 }
 
@@ -395,7 +395,7 @@ function get_current_song() {
         "rhythmbox"*)     get_song_dbus "rhythmbox" ;;
         "mpd"*)           song="$(mpc -f '%artist% \n%album% \n%title%' current)" ;;
         "mopidy"*)        song="$(mpc -f '%artist% \n%album% \n%title%' current)" ;;
-        *)                center_text "${BLUE}${MUSIC} " && return ;;
+        *)                echo -e "${BLUE}${MUSIC} " && return ;;
     esac
 
     IFS=$'\n' read -d "" artist album title <<< "${song//'\n'/$'\n'}"
@@ -405,9 +405,9 @@ function get_current_song() {
     title="${title:-Unknown Song}"
 
     if [ "$show_labels" = true ]; then
-        center_text "${BLUE}${MUSIC} SONG: ${artist} - ${title}"
+        echo -e "${BLUE}${MUSIC} SONG: ${artist} - ${title}"
     else
-        center_text "${BLUE}${MUSIC}  ${WHITE}${artist} - ${title}"
+        echo -e "${BLUE}${MUSIC}  ${WHITE}${artist} - ${title}"
     fi
 }
 
@@ -422,7 +422,7 @@ if [ $# -eq 0 ]; then
     os_info
     package_manager_info
     uptime_info
-
+    echo -e "\n"
     colors_info
 else
     while [[ "$1" != "" ]]; do
@@ -452,4 +452,4 @@ else
     done
 fi
 
-#read -n1 -r -s -p " "
+read -n1 -r -s -p " "
