@@ -422,7 +422,6 @@ if [ $# -eq 0 ]; then
     os_info
     package_manager_info
     uptime_info
-    echo -e "\n"
     colors_info
 else
     while [[ "$1" != "" ]]; do
