@@ -206,9 +206,9 @@ function cpu_info() {
     local cpu_percent
     cpu_percent=$(top -b -n 1 | grep "Cpu(s)" | awk '{print $2}')
     if [ "$show_labels" = true ]; then
-        echo -e "${BLUE}${CPU} CPU: ${WHITE}$(cat /proc/cpuinfo | grep 'model name' | uniq | cut -d: -f2 | awk '{print $5}') - $cpu_percent"
+        echo -e "${BLUE}${CPU} CPU: ${WHITE}$(cat /proc/cpuinfo | grep 'model name' | uniq | cut -d: -f2 | awk '{print $5}') - $cpu_percent%"
     else
-        echo -e "${BLUE}${CPU}  ${WHITE}$(cat /proc/cpuinfo | grep 'model name' | uniq | cut -d: -f2 | awk '{print $5}') - $cpu_percent"
+        echo -e "${BLUE}${CPU}  ${WHITE}$(cat /proc/cpuinfo | grep 'model name' | uniq | cut -d: -f2 | awk '{print $5}') - $cpu_percent%"
     fi
 }
 
@@ -218,9 +218,9 @@ function memory_info() {
     total_mem=$(free | grep Mem | awk '{print $2}')
     used_mem=$(free | grep Mem | awk '{print $3}')
     if [ "$show_labels" = true ]; then
-        echo -e "${BLUE}${RAM} RAM: ${WHITE}$((used_mem/1024/1024)) GB / $((total_mem/1024/1024)) GB - $((used_mem * 100 / total_mem))"
+        echo -e "${BLUE}${RAM} RAM: ${WHITE}$((used_mem/1024/1024)) GB / $((total_mem/1024/1024)) GB - $((used_mem * 100 / total_mem))%"
     else
-        echo -e "${BLUE}${RAM}  ${WHITE}$((used_mem/1024/1024)) GB / $((total_mem/1024/1024)) GB - $((used_mem * 100 / total_mem))"
+        echo -e "${BLUE}${RAM}  ${WHITE}$((used_mem/1024/1024)) GB / $((total_mem/1024/1024)) GB - $((used_mem * 100 / total_mem))%"
     fi
 }
 
@@ -324,7 +324,7 @@ echo -e "░ ▒░   ░  ░ ▒ ░    ░░ ▒░ ░ ▒ ░░   ░ ░
 echo -e "░  ░      ░ ░       ░ ░  ░   ░      ░  ▒    ▒ ░▒░ ░"
 echo -e "░      ░    ░ ░       ░    ░      ░         ░  ░░ ░"
 echo -e "       ░              ░  ░        ░ ░       ░  ░  ░"
-echo -e "                                  ░         ${BLUE}"       
+echo -e "                                  ░         ${BLUE}"
     echo -e "Usage: $0 \n\n    [--labels]\n    [--logo]\n    [--cpu]\n    [--ram]\n    [--gpu]\n    [--disk]\n    [--ip]\n    [--os]\n    [--shell]\n    [--wm]\n    [--uptime]\n    [--kernel]\n    [--user]\n    [--help]\n    [--colors]\n    [--resol]\n    [--song]"
 }
 
@@ -411,11 +411,18 @@ function get_current_song() {
     fi
 }
 
+function say_hi() {
+    username=$(whoami)
+
+    echo -e "${RED}Hi ${GREEN}$username${WHITE}${RED} !\n"
+}
+
 echo -e "\n\n\n"
 
 if [ $# -eq 0 ]; then
     ascii_art
 
+    say_hi
     user_info
     wm_info
     ip_info
