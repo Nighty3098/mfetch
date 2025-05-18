@@ -1,21 +1,20 @@
 #!/bin/bash
 
-CPU=""
-RAM=""
-GPU=""
-OS=""
-DISK=""
-SHELL_ICO=""
-WM=""
-UPTIME=""
-KERNEL=""
-USER=""
-HELP=""
-PKGS=""
-IP_ICO=""
-RESOL_ICO=""
-MUSIC=""
-
+CPU=" "
+RAM=" "
+GPU=" "
+OS=" "
+DISK=" "
+SHELL_ICO=" "
+WM=" "
+UPTIME=" "
+KERNEL=" "
+USER="  "
+HELP=" "
+PKGS=" "
+IP_ICO=" "
+RESOL_ICO=" "
+MUSIC=" "
 
 RESET="\e[0m"
 BLACK="\e[1;30m"
@@ -38,6 +37,7 @@ CYAN_BG="\e[7;36m"
 WHITE_BG="\e[7;37m"
 
 show_labels=false
+selected_sections=()
 
 clear
 
@@ -52,51 +52,46 @@ function get_terminal_size() {
 function center_text() {
     text=$@
 
-    cols=`tput cols`
+    cols=$(tput cols)
 
     IFS=$'\n'$'\r'
-    for line in $(echo -e $text); do
-
-        line_length=`echo $line | sed -r "s/\x1B\[([0-9]{1,1}(;[0-9]{1,2})?)?[m|K]//g" | wc -c`
-        half_of_line_length=`expr $line_length / 2`
-        is_odd=`expr $line_length % 2 == 1`
-        half_of_line_length=`expr $half_of_line_length + $is_odd`
-        center=`expr \( $cols / 2 \) - $half_of_line_length`
+    for line in $(echo -e "$text"); do
+        line_length=$(echo "$line" | sed -r "s/\x1B\[([0-9]{1,1}(;[0-9]{1,2})?)?[m|K]//g" | wc -c)
+        half_of_line_length=$((line_length / 2))
+        is_odd=$((line_length % 2))
+        half_of_line_length=$((half_of_line_length + is_odd))
+        center=$(( (cols / 2) - half_of_line_length ))
 
         spaces=""
-        for ((i=0; i < $center; i++)) {
+        for ((i=0; i < center; i++)); do
             spaces+=" "
-        }
-        printf "${spaces}${line}"
-        echo
-
+        done
+        printf "%s%s\n" "$spaces" "$line"
     done
 }
 
 function vertical_center_text() {
     text=$@
 
-    rows=`tput lines`
+    rows=$(tput lines)
 
-    text_length=`echo -e $text | wc -l`
-    half_of_text_length=`expr $text_length / 6`
+    text_length=$(echo -e "$text" | wc -l)
+    half_of_text_length=$((text_length / 6))
 
-    center=`expr \( $rows / 6 \) - $half_of_text_length`
+    center=$(( (rows / 6) - half_of_text_length ))
 
     lines=""
 
-    for ((i=0; i < $center; i++)) {
+    for ((i=0; i < center; i++)); do
         lines+="\n"
-    }
+    done
 
-    echo -e "$lines$text$lines"
+    echo -e "${lines}${text}${lines}"
 }
 
-#vertical_center_text
 
-function ascii_art() {
+function raw_ascii_art() {
     os_name="$(lsb_release -d | cut -f2)"
-    # os_name="openSUSE Linux"
 
     case "$os_name" in
         "openSUSE Linux" | "openSUSE Tumbleweed" | "openSUSE")
@@ -134,7 +129,7 @@ function ascii_art() {
             echo -e "${RED_BG}     |  (_'     ${RESET_BG}"
             echo -e "${RED_BG}      \         ${RESET_BG}"
             echo -e "${RED_BG}                ${RESET_BG}";;
-        "Endeavouros Linux")
+        "EndeavourOS Linux")
             echo -e "${MAGENTA_BG}                ${RESET_BG}"
             echo -e "${MAGENTA_BG}        __      ${RESET_BG}"
             echo -e "${MAGENTA_BG}       /  \     ${RESET_BG}"
@@ -174,288 +169,166 @@ function ascii_art() {
 }
 
 
-function show_screen_resolutions() {
-    screens=$(xrandr | grep ' connected' | awk '{ print $1 }')
-
-    if [ -z "$screens" ]; then
-        echo ""
-        return
-    fi
-
-    for screen in $screens; do
-        resolution=$(xrandr | grep -A1 "$screen" | grep '*' | awk '{print $1}')
-        if [ "$show_labels" = true ]; then
-            echo -e "${BLUE}${RESOL_ICO} $screen: ${WHITE} $resolution"
-        else
-            echo -e "${BLUE}${RESOL_ICO} ${WHITE} $resolution"
-        fi
-    done
-}
-
-function ip_info() {
-    IP=$(curl --silent ifconfig.me)
-
-    if [ "$show_labels" = true ]; then
-        echo -e "${BLUE}${IP_ICO} IP: ${WHITE}$IP"
-    else
-        echo -e "${BLUE}${IP_ICO}  ${WHITE}$IP"
-    fi
-}
-
-function cpu_info() {
-    local cpu_percent
-    cpu_percent=$(top -b -n 1 | grep "Cpu(s)" | awk '{print $2}')
-    if [ "$show_labels" = true ]; then
-        echo -e "${BLUE}${CPU} CPU: ${WHITE}$(cat /proc/cpuinfo | grep 'model name' | uniq | cut -d: -f2 | awk '{print $5}') - $cpu_percent%"
-    else
-        echo -e "${BLUE}${CPU}  ${WHITE}$(cat /proc/cpuinfo | grep 'model name' | uniq | cut -d: -f2 | awk '{print $5}') - $cpu_percent%"
-    fi
-}
-
-function memory_info() {
-    local total_mem
-    local used_mem
-    total_mem=$(free | grep Mem | awk '{print $2}')
-    used_mem=$(free | grep Mem | awk '{print $3}')
-    if [ "$show_labels" = true ]; then
-        echo -e "${BLUE}${RAM} RAM: ${WHITE}$((used_mem/1024/1024)) GB / $((total_mem/1024/1024)) GB - $((used_mem * 100 / total_mem))%"
-    else
-        echo -e "${BLUE}${RAM}  ${WHITE}$((used_mem/1024/1024)) GB / $((total_mem/1024/1024)) GB - $((used_mem * 100 / total_mem))%"
-    fi
-}
-
-function user_info() {
-    local username
-    local hostname
-    username=$(whoami)
-    hostname=$(hostname)
-    echo -e "${BLUE}${USER} $username@${WHITE}$hostname${WHITE}"
-}
-
-function gpu_info() {
-    if command -v lspci &> /dev/null; then
-        if [ "$show_labels" = true ]; then
-            echo -e "${BLUE}${GPU} GPU: ${WHITE}$(lspci | grep -i vga | cut -d: -f3- | sed 's/^.*\[\(.*\)\].*$/\1/')"
-        else
-            echo -e "${BLUE}${GPU}  ${WHITE}$(lspci | grep -i vga | cut -d: -f3- | sed 's/^.*\[\(.*\)\].*$/\1/')"
-        fi
-    else
-        echo "Error: lspci command not found."
-        return 1
-    fi
-}
-
-function disk_info() {
-    local disk_usage
-    local disk_use
-    local disk_size
-    disk_usage=$(df -h / | grep / | awk '{print $5}')
-    disk_use=$(df -h / | grep / | awk '{print $3}')
-    disk_size=$(df -h / | grep / | awk '{print $2}')
-
-    if [ "$show_labels" = true ]; then
-        echo -e "${BLUE}${DISK} Disk: ${WHITE}$disk_use/$disk_size - $disk_usage"
-    else
-        echo -e "${BLUE}${DISK}  ${WHITE}$disk_use/$disk_size - $disk_usage"
-    fi
-}
-
-function kernel_info() {
-    if [ "$show_labels" = true ]; then
-        echo -e "${BLUE}${KERNEL} Kernel: ${WHITE}$(uname -r)"
-    else
-        echo -e "${BLUE}${KERNEL}  ${WHITE}$(uname -r)"
-    fi
-}
-
-function os_info() {
-    if [ "$show_labels" = true ]; then
-        echo -e "${BLUE}${OS} OS: ${WHITE}$(lsb_release -d | cut -f2)"
-    else
-        echo -e "${BLUE}${OS}  ${WHITE}$(lsb_release -d | cut -f2)"
-    fi
-}
-
-function shell_info() {
-    if [ "$show_labels" = true ]; then
-        echo -e "${BLUE}${SHELL_ICO} Shell: ${WHITE}$SHELL"
-    else
-        echo -e "${BLUE}${SHELL_ICO}  ${WHITE}$SHELL"
-    fi
-}
-
-function wm_info() {
-    if [ "$show_labels" = true ]; then
-        echo -e "${BLUE}${WM} WM: ${WHITE}$(echo $XDG_CURRENT_DESKTOP)"
-    else
-        echo -e "${BLUE}${WM}  ${WHITE}$(echo $XDG_CURRENT_DESKTOP)"
-    fi
-}
-
-function uptime_info() {
-    local uptime_seconds
-    uptime_seconds=$(awk '{print $1}' /proc/uptime)
-
-    uptime_seconds=${uptime_seconds%.*}
-    local days=$((uptime_seconds / 86400))
-    local hours=$(( (uptime_seconds % 86400) / 3600 ))
-    local minutes=$(( (uptime_seconds % 3600) / 60 ))
-
-    if [ "$show_labels" = true ]; then
-        echo -e "${BLUE}${UPTIME} Uptime: ${WHITE}$((days))d $((hours))h $((minutes))m"
-    else
-        echo -e "${BLUE}${UPTIME}  ${WHITE}$((days))d $((hours))h $((minutes))m"
-    fi
-}
-
-function colors_info() {
-    echo -e "\n"
-    echo -e "${RED}⬤ ${GREEN}⬤ ${BLUE}⬤ ${CYAN}⬤ ${WHITE}⬤ ${RESET}"
-    printf "\n"
-}
-
-function help_info() {
-echo -e "${RED} ███▄ ▄███▓  █████▒▓█████▄▄▄█████▓ ▄████▄   ██░ ██ "
-echo -e "▓██▒▀█▀ ██▒▓██   ▒ ▓█   ▀▓  ██▒ ▓▒▒██▀ ▀█  ▓██░ ██▒"
-echo -e "▓██    ▓██░▒████ ░ ▒███  ▒ ▓██░ ▒░▒▓█    ▄ ▒██▀▀██░"
-echo -e "▒██    ▒██ ░▓█▒  ░ ▒▓█  ▄░ ▓██▓ ░ ▒▓▓▄ ▄██▒░▓█ ░██ "
-echo -e "▒██▒   ░██▒░▒█░    ░▒████▒ ▒██▒ ░ ▒ ▓███▀ ░░▓█▒░██▓"
-echo -e "░ ▒░   ░  ░ ▒ ░    ░░ ▒░ ░ ▒ ░░   ░ ░▒ ▒  ░ ▒ ░░▒░▒"
-echo -e "░  ░      ░ ░       ░ ░  ░   ░      ░  ▒    ▒ ░▒░ ░"
-echo -e "░      ░    ░ ░       ░    ░      ░         ░  ░░ ░"
-echo -e "       ░              ░  ░        ░ ░       ░  ░  ░"
-echo -e "                                  ░         ${BLUE}"
-    echo -e "Usage: $0 \n\n    [--labels]\n    [--logo]\n    [--cpu]\n    [--ram]\n    [--gpu]\n    [--disk]\n    [--ip]\n    [--os]\n    [--shell]\n    [--wm]\n    [--uptime]\n    [--kernel]\n    [--user]\n    [--help]\n    [--colors]\n    [--resol]\n    [--song]"
-}
-
-function package_manager_info() {
-    local package_manager=""
-    local package_count=""
-
-    if command -v dpkg &> /dev/null; then
-        package_manager="dpkg"
-        package_count=$(dpkg --get-selections | wc -l)
-    elif command -v rpm &> /dev/null; then
-        package_manager="rpm"
-        package_count=$(rpm -qa | wc -l)
-    elif command -v pacman &> /dev/null; then
-        package_manager="pacman"
-        package_count=$(pacman -Q | wc -l)
-    elif command -v zypper &> /dev/null; then
-        package_manager="zypper"
-        package_count=$(zypper packages --installed-only | wc -l)
-    elif command -v apt &> /dev/null; then
-        package_manager="apt"
-        package_count=$(apt list --installed | wc -l)
-    else
-        echo "Unknown package manager"
-        return 1
-    fi
-
-    if [ "$show_labels" = true ]; then
-        echo -e "${BLUE}${PKGS} PKGS: ${WHITE}$package_count - $package_manager"
-    else
-        echo -e "${BLUE}${PKGS}  ${WHITE}$package_count - $package_manager"
-    fi
-}
-
-function get_current_song() {
-    players=(
-        "amarok"
-        "audacious"
-        "banshee"
-        "clementine"
-        "cmus"
-        "deadbeef"
-        "vlc"
-        "spotify"
-        "rhythmbox"
-        "playerctl"
-        "mpd"
-        "mopidy"
-    )
-
-    printf -v players_pattern "|%s" "${players[@]}"
-    player="$(ps aux | awk -v pattern="(${players_pattern:1})" \
-        '!/ awk / && match($0, pattern) {print substr($0, RSTART, RLENGTH); exit}')"
-
-    get_song_dbus() {
-        song="$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2."${1}" /org/mpris/MediaPlayer2 \
-            org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' \
-            string:'Metadata' |\
-            awk -F '"' 'BEGIN {RS=" entry"}; /"xesam:artist"/ {a = $4} /"xesam:album"/ {b = $4}
-                        /"xesam:title"/ {t = $4} END {print a " \n" b " \n" t}')"
-    }
-
-    case ${player/*\/} in
-        "vlc"*)           song="$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.vlc /org/mpris/MediaPlayer2 \
-                            org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' \
-                            string:'Metadata' | awk -F '"' '/"xesam:artist"/ {print $4} /"xesam:title"/ {print $4}')" ;;
-        "spotify"*)       song="$(playerctl metadata --format '{{ artist }} \n{{ album }} \n{{ title }}')" ;;
-        "rhythmbox"*)     get_song_dbus "rhythmbox" ;;
-        "mpd"*)           song="$(mpc -f '%artist% \n%album% \n%title%' current)" ;;
-        "mopidy"*)        song="$(mpc -f '%artist% \n%album% \n%title%' current)" ;;
-        *)                echo -e "${BLUE}${MUSIC} " && return ;;
-    esac
-
-    IFS=$'\n' read -d "" artist album title <<< "${song//'\n'/$'\n'}"
-
-    artist="${artist:-Unknown Artist}"
-    album="${album:-Unknown Album}"
-    title="${title:-Unknown Song}"
-
-    if [ "$show_labels" = true ]; then
-        echo -e "${BLUE}${MUSIC} SONG: ${artist} - ${title}"
-    else
-        echo -e "${BLUE}${MUSIC}  ${WHITE}${artist} - ${title}"
-    fi
-}
-
-function say_hi() {
-    username=$(whoami)
-
-    echo -e "${RED}Hi ${GREEN}$username${WHITE}${RED} !\n"
-}
-
-echo -e "\n\n\n"
-
-if [ $# -eq 0 ]; then
-    ascii_art
-
-    say_hi
-    user_info
-    wm_info
-    ip_info
-    os_info
-    package_manager_info
-    uptime_info
-    colors_info
-else
-    while [[ "$1" != "" ]]; do
-        case $1 in
-            --labels ) show_labels=true ;;
-            --logo ) ascii_art ;;
-            --cpu ) cpu_info ;;
-            --ram ) memory_info ;;
-            --gpu ) gpu_info ;;
-            --disk ) disk_info ;;
-            --os ) os_info ;;
-            --shell ) shell_info ;;
-            --wm ) wm_info ;;
-            --uptime ) uptime_info ;;
-            --kernel ) kernel_info ;;
-            --user ) user_info ;;
-            --help ) help_info ;;
-            -h ) help_info ;;
-            --colors ) colors_info ;;
-            --pkgs ) package_manager_info ;;
-            --ip ) ip_info ;;
-            --resol ) show_screen_resolutions ;;
-            --song ) get_current_song ;;
-            * ) echo "Unknown option: $1" ;;
+function display_info_side_by_side() {
+    local art=()
+    while IFS= read -r line; do
+        art+=("$line")
+    done < <(raw_ascii_art)
+    
+    local info_text=()
+    local info_colored=()
+    
+    for section in "${selected_sections[@]}"; do
+        case "$section" in
+            "user")
+                info_text+=("${USER}$(whoami)@$(hostname)")
+                info_colored+=(" ${BLUE}${USER}${WHITE}$(whoami)@$(hostname)")
+                ;;
+            "os")
+                info_text+=("${OS} OS: $(lsb_release -d | cut -f2 2>/dev/null || echo "Unknown")")
+                info_colored+=(" ${BLUE}${OS} OS: ${WHITE}$(lsb_release -d | cut -f2 2>/dev/null || echo "Unknown")")
+                ;;
+            "kernel")
+                info_text+=("${KERNEL} Kernel: $(uname -r)")
+                info_colored+=(" ${BLUE}${KERNEL} Kernel: ${WHITE}$(uname -r)")
+                ;;
+            "uptime")
+                info_text+=("${UPTIME} Uptime: $(uptime -p | sed 's/up //')")
+                info_colored+=(" ${BLUE}${UPTIME} Uptime: ${WHITE}$(uptime -p | sed 's/up //')")
+                ;;
+            "shell")
+                info_text+=("${SHELL_ICO} Shell: $SHELL")
+                info_colored+=(" ${BLUE}${SHELL_ICO} Shell: ${WHITE}$SHELL")
+                ;;
+            "wm")
+                info_text+=("${WM} WM: ${XDG_CURRENT_DESKTOP:-Unknown}")
+                info_colored+=(" ${BLUE}${WM} WM: ${WHITE}${XDG_CURRENT_DESKTOP:-Unknown}")
+                ;;
+            "memory")
+                info_text+=("${RAM} Memory: $(free -h | awk '/Mem:/ {print $3 "/" $2}')")
+                info_colored+=(" ${BLUE}${RAM} Memory: ${WHITE}$(free -h | awk '/Mem:/ {print $3 "/" $2}')")
+                ;;
+            "cpu")
+                cpu_info=$(lscpu | grep "Model name" | cut -d':' -f2 | sed -e 's/^[ \t]*//')
+                if [ -z "$cpu_info" ]; then
+                    cpu_info=$(cat /proc/cpuinfo | grep "model name" | head -n 1 | cut -d':' -f2 | sed -e 's/^[ \t]*//')
+                fi
+                cpu_cores=$(nproc)
+                cpu_info="$cpu_info ($cpu_cores cores)"
+                info_text+=("${CPU} CPU: $cpu_info")
+                info_colored+=(" ${BLUE}${CPU} CPU: ${WHITE}$cpu_info")
+                ;;
+            "colors")
+                info_text+=("        ")
+                info_colored+=(" ${BLACK} ${RED} ${GREEN} ${YELLOW} ${BLUE} ${MAGENTA} ${CYAN} ${WHITE} ")
+                ;;
         esac
-        shift
     done
-fi
+    
+    if [ ${#selected_sections[@]} -eq 0 ]; then
+        info_text=(
+            "${USER}$(whoami)@$(hostname)"
+            "${OS} OS: $(lsb_release -d | cut -f2 2>/dev/null || echo "Unknown")"
+            "${UPTIME} Uptime: $(uptime -p | sed 's/up //')"
+            "${SHELL_ICO} Shell: $SHELL"
+            "${WM} WM: ${XDG_CURRENT_DESKTOP:-Unknown}"
+            "        "
+        )
+        info_colored=(
+            " ${BLUE}${USER}${WHITE}$(whoami)@$(hostname)"
+            " ${BLUE}${OS} OS: ${WHITE}$(lsb_release -d | cut -f2 2>/dev/null || echo "Unknown")"
+            " ${BLUE}${UPTIME} Uptime: ${WHITE}$(uptime -p | sed 's/up //')"
+            " ${BLUE}${SHELL_ICO} Shell: ${WHITE}$SHELL"
+            " ${BLUE}${WM} WM: ${WHITE}${XDG_CURRENT_DESKTOP:-Unknown}"
+            " ${BLACK} ${RED} ${GREEN} ${YELLOW} ${BLUE} ${MAGENTA} ${CYAN} ${WHITE} "
+        )
+    fi
+    
+    local art_width=0
+    for line in "${art[@]}"; do
+        line_plain=$(echo -e "$line" | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g")
+        (( ${#line_plain} > art_width )) && art_width=${#line_plain}
+    done
+    
+    for ((i=0; i<${#art[@]}; i++)); do
+        local info_plain="${info_text[$i]-}"
+        local info_colored_line="${info_colored[$i]-}"
+        
+        local art_line_plain=$(echo -e "${art[$i]}" | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g")
+        local current_padding=$((art_width - ${#art_line_plain}))
+        
+        printf " %s%*s%b\n" "${art[$i]}" "$current_padding" "" "$info_colored_line"
+    done
+}
 
-read -n1 -r -s -p " "
+while [[ "$1" != "" ]]; do
+    case $1 in
+        --labels)
+            show_labels=true
+            shift
+            ;;
+        --logo)
+            raw_ascii_art
+            exit 0
+            ;;
+        --user)
+            selected_sections+=("user")
+            shift
+            ;;
+        --os)
+            selected_sections+=("os")
+            shift
+            ;;
+        --kernel)
+            selected_sections+=("kernel")
+            shift
+            ;;
+        --uptime)
+            selected_sections+=("uptime")
+            shift
+            ;;
+        --shell)
+            selected_sections+=("shell")
+            shift
+            ;;
+        --wm)
+            selected_sections+=("wm")
+            shift
+            ;;
+        --memory)
+            selected_sections+=("memory")
+            shift
+            ;;
+        --cpu)
+            selected_sections+=("cpu")
+            shift
+            ;;
+        --colors)
+            selected_sections+=("colors")
+            shift
+            ;;
+        --help)
+            echo "Usage: $0 [options]"
+            echo "Options:"
+            echo "  --labels       Show labels for information"
+            echo "  --logo         Show only logo"
+            echo "  --user         Show user info"
+            echo "  --os           Show OS info"
+            echo "  --kernel       Show kernel info"
+            echo "  --uptime       Show uptime"
+            echo "  --shell        Show shell info"
+            echo "  --wm           Show window manager info"
+            echo "  --memory       Show memory usage"
+            echo "  --cpu          Show cpu info"
+            echo "  --colors       Show color palette"
+            echo "  --help         Show this help message"
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1"
+            exit 1
+            ;;
+    esac
+done
+
+display_info_side_by_side
