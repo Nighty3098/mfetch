@@ -38,7 +38,7 @@ case $OS_ID in
     fedora | redhat | centos)
         install_packages dnf "curl bash pciutils procps "
         ;;
-    arch | manjaro)
+    arch | manjaro | endeavouros)
         install_packages pacman "curl bash pciutils procps "
         ;;
     *)

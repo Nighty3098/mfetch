@@ -209,6 +209,7 @@ function display_info_side_by_side() {
                 info_colored+=(" ${BLUE}${RAM} Memory: ${WHITE}$(free -h | awk '/Mem:/ {print $3 "/" $2}')")
                 ;;
             "cpu")
+                cpu_load=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')
                 cpu_info=$(lscpu | grep "Model name" | cut -d':' -f2 | sed -e 's/^[ \t]*//')
                 if [ -z "$cpu_info" ]; then
                     cpu_info=$(cat /proc/cpuinfo | grep "model name" | head -n 1 | cut -d':' -f2 | sed -e 's/^[ \t]*//')
@@ -216,7 +217,7 @@ function display_info_side_by_side() {
                 cpu_cores=$(nproc)
                 cpu_info="$cpu_info ($cpu_cores cores)"
                 info_text+=("${CPU} CPU: $cpu_info")
-                info_colored+=(" ${BLUE}${CPU} CPU: ${WHITE}$cpu_info")
+                info_colored+=(" ${BLUE}${CPU} CPU: ${WHITE}$cpu_info - $cpu_load%")
                 ;;
             "colors")
                 info_text+=("        ")
