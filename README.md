@@ -1,46 +1,44 @@
-<div style="column-count: 2; column-gap: 20px;">
-<div>
-<h1>✨ System Fetch Tool ✨</h1>
-<br /><br />
-A beautiful, customizable system information tool for Linux and macOS that displays your system specs with elegant ASCII art and colorful icons.
-<br />
+<h1 align="center"> :herb: System Fetch Tool :herb: </h1>
+
+</br>
+
+
+<p align="center">
 <a href="./LICENSE.md"><img  class="badge" src="https://img.shields.io/github/license/Nighty3098/mfetch?style=for-the-badge&color=a6e0b8&logoColor=ffffff&labelColor=1c1c29"  style="border-radius: 5px;"/></a>
 <img class="badge" src="https://img.shields.io/github/stars/Nighty3098/mfetch?style=for-the-badge&color=eed49f&logoColor=D9E0EE&labelColor=1c1c29" style="border-radius: 5px;"/>
 <img class="badge" src="https://img.shields.io/github/forks/Nighty3098/mfetch?style=for-the-badge&color=9dc3ea&logoColor=D9E0EE&labelColor=1c1c29"  style="border-radius: 5px;"/>
-</div>
+  </br>
+</p>
 
-<div>
-<br />
-<img src="./images/1.png" />
-</div>
-</div>
+</br>
+</br>
+<h1 align="left">📋 About</h1> 
 
-<br /><br />
+<img src="./images/1.png" align="right" style="width: 500px" />
 
-<div style="column-count: 2; column-gap: 20px;">
-<div>
-<img src="./images/3.png" style="width: auto" />
-</div>
-<div>
-<img src="./images/2.png" style="width: auto" />
-</div>
-</div>
+</br>
+</br>
+</br>
 
-<br /><br />
+- [`🌟 Features`](#-features)
+- [`📥 Installation`](#-installation)
+- [`🚀 Usage`](#-usage)
+- [`🎨 Customization`](#-customization)
+- [`🐧 Supported Systems`](#-supported-systems)
+- [`🤝 Contributing`](#-contributing)
 
-## 📋 Table of Contents
-- [📋 Table of Contents](#-table-of-contents)
-- [🌟 Features](#-features)
-- [📥 Installation](#-installation)
-- [🚀 Usage](#-usage)
-  - [Available Options:](#available-options)
-- [🎨 Customization](#-customization)
-  - [Color Schemes](#color-schemes)
-  - [Adding New Distro Logos](#adding-new-distro-logos)
-- [🐧 Supported Systems](#-supported-systems)
-- [🤝 Contributing](#-contributing)
-  - [Development Guidelines:](#development-guidelines)
-- [📜 License](#-license)
+</br>
+</br>
+</br>
+</br>
+
+## 🖼️ Gallery
+
+<img src="./images/3.png" style="width: 100%" />
+<img src="./images/2.png" style="width: 100%" />
+
+</br>
+</br>
 
 ## 🌟 Features
 
