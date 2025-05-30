@@ -91,80 +91,80 @@ function vertical_center_text() {
 
 
 function raw_ascii_art() {
-    #os_name="$(lsb_release -d | cut -f2)"
+    os_name="$(lsb_release -d | cut -f2)"
 
-    os_name="Arch Linux"
+    # os_name="Ubuntu Linux"
     case "$os_name" in
         "openSUSE Linux" | "openSUSE Tumbleweed" | "openSUSE")
-            echo -e "${GREEN_BG}                ${RESET_BG}"
-            echo -e "${GREEN_BG}      ,___      ${RESET_BG}"
-            echo -e "${GREEN_BG}    _| () \     ${RESET_BG}"
-            echo -e "${GREEN_BG}   /    --'     ${RESET_BG}"
-            echo -e "${GREEN_BG}   \ ___^/      ${RESET_BG}"
-            echo -e "${GREEN_BG}                ${RESET_BG}";;
+            echo -e "${GREEN_BG}                  ${RESET_BG}"
+            echo -e "${GREEN_BG}       ,___       ${RESET_BG}"
+            echo -e "${GREEN_BG}     _| () \      ${RESET_BG}"
+            echo -e "${GREEN_BG}    /    --'      ${RESET_BG}"
+            echo -e "${GREEN_BG}    \ ___^/       ${RESET_BG}"
+            echo -e "${GREEN_BG}                  ${RESET_BG}";;
         "Arch Linux")
-            echo -e "${CYAN_BG}                ${RESET_BG}"
-            echo -e "${CYAN_BG}                ${RESET_BG}"
-            echo -e "${CYAN_BG}       /\       ${RESET_BG}"
-            echo -e "${CYAN_BG}      /  \      ${RESET_BG}"
-            echo -e "${CYAN_BG}     /_/\_\     ${RESET_BG}"
-            echo -e "${CYAN_BG}                ${RESET_BG}";;
+            echo -e "${CYAN_BG}                  ${RESET_BG}"
+            echo -e "${CYAN_BG}                  ${RESET_BG}"
+            echo -e "${CYAN_BG}        /\        ${RESET_BG}"
+            echo -e "${CYAN_BG}       /  \       ${RESET_BG}"
+            echo -e "${CYAN_BG}      /_/\_\      ${RESET_BG}"
+            echo -e "${CYAN_BG}                  ${RESET_BG}";;
         "Alpine Linux")
-            echo -e "${BLUE_BG}                ${RESET_BG}"
-            echo -e "${BLUE_BG}                ${RESET_BG}"
-            echo -e "${BLUE_BG}      /\        ${RESET_BG}"
-            echo -e "${BLUE_BG}     // \/\     ${RESET_BG}"
-            echo -e "${BLUE_BG}    //   \ \    ${RESET_BG}"
-            echo -e "${BLUE_BG}                ${RESET_BG}";;
+            echo -e "${BLUE_BG}                  ${RESET_BG}"
+            echo -e "${BLUE_BG}                  ${RESET_BG}"
+            echo -e "${BLUE_BG}       /\         ${RESET_BG}"
+            echo -e "${BLUE_BG}      // \/\      ${RESET_BG}"
+            echo -e "${BLUE_BG}     //   \ \     ${RESET_BG}"
+            echo -e "${BLUE_BG}                  ${RESET_BG}";;
         "Bedrock Linux")
-            echo -e "${WHITE_BG}                ${RESET_BG}"
-            echo -e "${WHITE_BG}    __          ${RESET_BG}"
-            echo -e "${WHITE_BG}    \ \___      ${RESET_BG}"
-            echo -e "${WHITE_BG}     \  _ \     ${RESET_BG}"
-            echo -e "${WHITE_BG}      \___/     ${RESET_BG}"
-            echo -e "${WHITE_BG}                ${RESET_BG}";;
+            echo -e "${WHITE_BG}                  ${RESET_BG}"
+            echo -e "${WHITE_BG}     __           ${RESET_BG}"
+            echo -e "${WHITE_BG}     \ \___       ${RESET_BG}"
+            echo -e "${WHITE_BG}      \  _ \      ${RESET_BG}"
+            echo -e "${WHITE_BG}       \___/      ${RESET_BG}"
+            echo -e "${WHITE_BG}                  ${RESET_BG}";;
         "Debian Linux")
-            echo -e "${RED_BG}                ${RESET_BG}"
-            echo -e "${RED_BG}        __      ${RESET_BG}"
-            echo -e "${RED_BG}     '/  .\'    ${RESET_BG}"
-            echo -e "${RED_BG}     |  (_'     ${RESET_BG}"
-            echo -e "${RED_BG}      \         ${RESET_BG}"
-            echo -e "${RED_BG}                ${RESET_BG}";;
+            echo -e "${RED_BG}                  ${RESET_BG}"
+            echo -e "${RED_BG}         __       ${RESET_BG}"
+            echo -e "${RED_BG}      '/  .\'     ${RESET_BG}"
+            echo -e "${RED_BG}      |  (_'      ${RESET_BG}"
+            echo -e "${RED_BG}       \          ${RESET_BG}"
+            echo -e "${RED_BG}                  ${RESET_BG}";;
         "EndeavourOS Linux")
-            echo -e "${MAGENTA_BG}                ${RESET_BG}"
-            echo -e "${MAGENTA_BG}        __      ${RESET_BG}"
-            echo -e "${MAGENTA_BG}       /  \     ${RESET_BG}"
-            echo -e "${MAGENTA_BG}     /     |    ${RESET_BG}"
-            echo -e "${MAGENTA_BG}    '_____/     ${RESET_BG}"
-            echo -e "${MAGENTA_BG}                ${RESET_BG}";;
+            echo -e "${MAGENTA_BG}                  ${RESET_BG}"
+            echo -e "${MAGENTA_BG}         __       ${RESET_BG}"
+            echo -e "${MAGENTA_BG}        /  \      ${RESET_BG}"
+            echo -e "${MAGENTA_BG}      /     |     ${RESET_BG}"
+            echo -e "${MAGENTA_BG}     '_____/      ${RESET_BG}"
+            echo -e "${MAGENTA_BG}                  ${RESET_BG}";;
         "Manjaro Linux")
-            echo -e "${GREEN_BG}                ${RESET_BG}"
-            echo -e "${GREEN_BG}    ,___,,_,    ${RESET_BG}"
-            echo -e "${GREEN_BG}    | ,_|| |    ${RESET_BG}"
-            echo -e "${GREEN_BG}    | |  | |    ${RESET_BG}"
-            echo -e "${GREEN_BG}    |_|__|_|    ${RESET_BG}"
-            echo -e "${GREEN_BG}                ${RESET_BG}";;
+            echo -e "${GREEN_BG}                  ${RESET_BG}"
+            echo -e "${GREEN_BG}     ,___,,_,     ${RESET_BG}"
+            echo -e "${GREEN_BG}     | ,_|| |     ${RESET_BG}"
+            echo -e "${GREEN_BG}     | |  | |     ${RESET_BG}"
+            echo -e "${GREEN_BG}     |_|__|_|     ${RESET_BG}"
+            echo -e "${GREEN_BG}                  ${RESET_BG}";;
         "Ubuntu Linux")
-            echo -e "${RED_BG}                ${RESET_BG}"
-            echo -e "${RED_BG}       __       ${RESET_BG}"
-            echo -e "${RED_BG}    () -- ()    ${RESET_BG}"
-            echo -e "${RED_BG}    | |  | |    ${RESET_BG}"
-            echo -e "${RED_BG}     \ -- /     ${RESET_BG}"
-            echo -e "${RED_BG}       ''       ${RESET_BG}";;
+            echo -e "${YELLOW_BG}                  ${RESET_BG}"
+            echo -e "${YELLOW_BG}        __        ${RESET_BG}"
+            echo -e "${YELLOW_BG}     () -- ()     ${RESET_BG}"
+            echo -e "${YELLOW_BG}     | |  | |     ${RESET_BG}"
+            echo -e "${YELLOW_BG}      \ -- /      ${RESET_BG}"
+            echo -e "${YELLOW_BG}                  ${RESET_BG}";;
         "MacOS Big Sur" | "MacOS Monterey" | "MacOS catalina" | "macOS high-sierra" | "macOS Mojave" | "macOS mountain lion" | "macOS mojave" | "macOS big sur" | "macOS catalina" | "macOS mojave" | "macOS yosemite")
-            echo -e "${GREEN_BG}               ${RESET_BG}"
-            echo -e "${GREEN_BG}     _//_      ${RESET_BG}"
-            echo -e "${GREEN_BG}   /  '' \     ${RESET_BG}"
-            echo -e "${GREEN_BG}   |    (      ${RESET_BG}"
-            echo -e "${GREEN_BG}    \____/     ${RESET_BG}"
-            echo -e "${GREEN_BG}               ${RESET_BG}";;
+            echo -e "${WHITE_BG}                  ${RESET_BG}"
+            echo -e "${WHITE_BG}       _//_       ${RESET_BG}"
+            echo -e "${WHITE_BG}     /  '' \      ${RESET_BG}"
+            echo -e "${WHITE_BG}     |    (       ${RESET_BG}"
+            echo -e "${WHITE_BG}      \____/      ${RESET_BG}"
+            echo -e "${WHITE_BG}                  ${RESET_BG}";;
         *)
-            echo -e "${WHITE_BG}                ${RESET_BG}"
-            echo -e "${WHITE_BG}    /\ _ /\     ${RESET_BG}"
-            echo -e "${WHITE_BG}  =( > w < )=_  ${RESET_BG}"
-            echo -e "${WHITE_BG}    )  v  (_/ | ${RESET_BG}"
-            echo -e "${WHITE_BG}   ( _\|/_ )_/  ${RESET_BG}"
-            echo -e "${WHITE_BG}                ${RESET_BG}";;
+            echo -e "${MAGENTA_BG}                  ${RESET_BG}"
+            echo -e "${MAGENTA_BG}    ┌──────┐      ${RESET_BG}"
+            echo -e "${MAGENTA_BG}    │ ┌────┴─┐    ${RESET_BG}"
+            echo -e "${MAGENTA_BG}    └─┤  >_  │    ${RESET_BG}"
+            echo -e "${MAGENTA_BG}      └──────┘    ${RESET_BG}"
+            echo -e "${MAGENTA_BG}                  ${RESET_BG}";;
     esac
     echo -e "${RESET_BG}             ${RESET_BG}"
 }
@@ -250,7 +250,7 @@ function display_info_side_by_side() {
     
     local art_width=0
     for line in "${art[@]}"; do
-        line_plain=$(echo -e "$line" | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g")
+        line_plain=$(echo -e " $line " | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g")
         (( ${#line_plain} > art_width )) && art_width=${#line_plain}
     done
     
