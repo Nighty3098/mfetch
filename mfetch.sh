@@ -182,33 +182,33 @@ function display_info_side_by_side() {
     for section in "${selected_sections[@]}"; do
         case "$section" in
             "user")
-                info_text+=("${USER}$(whoami)@$(hostname)")
-                info_colored+=(" ${BLUE}${USER}${WHITE}$(whoami)@$(hostname)")
+                info_text+=("$(whoami)@$(hostname)")
+                info_colored+=(" ${BLUE}${WHITE}$(whoami)@$(hostname)")
                 ;;
             "os")
-                info_text+=("${OS} os: $(lsb_release -d | cut -f2 2>/dev/null || echo "Unknown")")
-                info_colored+=(" ${MAGENTA}${OS} os: ${WHITE}$(lsb_release -d | cut -f2 2>/dev/null || echo "Unknown")")
+                info_text+=("OS: $(lsb_release -d | cut -f2 2>/dev/null || echo "Unknown")")
+                info_colored+=(" ${MAGENTA}OS: ${WHITE}$(lsb_release -d | cut -f2 2>/dev/null || echo "Unknown")")
                 ;;
             "kernel")
-                info_text+=("${KERNEL} kr: $(uname -r)")
-                info_colored+=(" ${RED}${KERNEL} kr: ${WHITE}$(uname -r)")
+                info_text+=("KR: $(uname -r)")
+                info_colored+=(" ${RED}KR: ${WHITE}$(uname -r)")
                 ;;
             "uptime")
                 IFS=. read -r up _ < /proc/uptime;
-                info_text+=("${UPTIME} up: $((up / 60 / 60 / 24))D $((up / 60 / 60 % 24))H $((up / 60 % 60))M")
-                info_colored+=(" ${YELLOW}${UPTIME} up: $((up / 60 / 60 / 24))D $((up / 60 / 60 % 24))H $((up / 60 % 60))M")
+                info_text+=("UP: $((up / 60 / 60 / 24))D $((up / 60 / 60 % 24))H $((up / 60 % 60))M")
+                info_colored+=(" ${YELLOW}UP: ${WHITE}$((up / 60 / 60 / 24))D $((up / 60 / 60 % 24))H $((up / 60 % 60))M")
                 ;;
             "shell")
-                info_text+=("${SHELL_ICO} sh: ${SHELL##*/}")
-                info_colored+=(" ${CYAN}${SHELL_ICO} sh: ${WHITE}${SHELL##*/}")
+                info_text+=("SH: ${SHELL##*/}")
+                info_colored+=(" ${CYAN}SH: ${WHITE}${SHELL##*/}")
                 ;;
             "wm")
-                info_text+=("${WM} wm: ${XDG_CURRENT_DESKTOP:-Unknown}")
-                info_colored+=(" ${BLUE}${WM} wm: ${WHITE}${XDG_CURRENT_DESKTOP:-Unknown}")
+                info_text+=("WM: ${XDG_CURRENT_DESKTOP:-Unknown}")
+                info_colored+=(" ${BLUE}WM: ${WHITE}${XDG_CURRENT_DESKTOP:-Unknown}")
                 ;;
             "memory")
-                info_text+=("${RAM} ram: $(free -h | awk '/Mem:/ {print $3 "/" $2}')")
-                info_colored+=(" ${GREEN}${RAM} ram: ${WHITE}$(free -h | awk '/Mem:/ {print $3 "/" $2}')")
+                info_text+=("RM: $(free -h | awk '/Mem:/ {print $3 "/" $2}')")
+                info_colored+=(" ${GREEN}RM: ${WHITE}$(free -h | awk '/Mem:/ {print $3 "/" $2}')")
                 ;;
             "cpu")
                 cpu_load=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')
@@ -218,8 +218,8 @@ function display_info_side_by_side() {
                 fi
                 cpu_cores=$(nproc)
                 cpu_info="$cpu_info ($cpu_cores cores)"
-                info_text+=("${CPU} cpu: $cpu_info")
-                info_colored+=(" ${YELLOW}${CPU} cpu: ${WHITE}$cpu_info - $cpu_load%")
+                info_text+=("cpu: $cpu_info")
+                info_colored+=(" ${YELLOW}cpu: ${WHITE}$cpu_info - $cpu_load%")
                 ;;
             "colors")
                 info_text+=("        ")
@@ -231,20 +231,20 @@ function display_info_side_by_side() {
     if [ ${#selected_sections[@]} -eq 0 ]; then
       IFS=. read -r up _ < /proc/uptime;
         info_text=(
-            "${OS} os: $(lsb_release -d | cut -f2 2>/dev/null || echo "Unknown")"
-            "${KERNEL} kr: $(uname -r)"
-            "${UPTIME} up: $((up / 60 / 60 / 24))D $((up / 60 / 60 % 24))H $((up / 60 % 60))M"
-            "${SHELL_ICO} sh: ${SHELL##*/}"
-            "${WM} wm: ${XDG_CURRENT_DESKTOP:-Unknown}"
+            "OS: $(lsb_release -d | cut -f2 2>/dev/null || echo "Unknown")"
+            "KR: $(uname -r)"
+            "UP: $((up / 60 / 60 / 24))D $((up / 60 / 60 % 24))H $((up / 60 % 60))M"
+            "SH: ${SHELL##*/}"
+            "WM: ${XDG_CURRENT_DESKTOP:-Unknown}"
             "        "
         )
         info_colored=(
-            " ${MAGENTA}${OS} os: ${WHITE}$(lsb_release -d | cut -f2 2>/dev/null || echo "Unknown")"
-            " ${RED}${KERNEL} kr: ${WHITE}$(uname -r)"
-            " ${GREEN}${UPTIME} up: ${WHITE}$((up / 60 / 60 / 24))D $((up / 60 / 60 % 24))H $((up / 60 % 60))M"
-            " ${BLUE}${SHELL_ICO} sh: ${WHITE}${SHELL##*/}"
-            " ${YELLOW}${WM} wm: ${WHITE}${XDG_CURRENT_DESKTOP:-Unknown}"
-            " ${BLACK} ${RED} ${GREEN} ${YELLOW} ${BLUE} ${MAGENTA} ${CYAN} ${WHITE} "
+            " ${MAGENTA}OS: ${WHITE}$(lsb_release -d | cut -f2 2>/dev/null || echo "Unknown")"
+            " ${RED}KR: ${WHITE}$(uname -r)"
+            " ${GREEN}UP: ${WHITE}$((up / 60 / 60 / 24))D $((up / 60 / 60 % 24))H $((up / 60 % 60))M"
+            " ${BLUE}SH: ${WHITE}${SHELL##*/}"
+            " ${YELLOW}WM: ${WHITE}${XDG_CURRENT_DESKTOP:-Unknown}"
+            " ${BLACK}  ${RED}  ${GREEN}  ${YELLOW}  ${BLUE}  ${MAGENTA}  ${CYAN}  ${WHITE}  "
         )
     fi
     
@@ -314,8 +314,6 @@ while [[ "$1" != "" ]]; do
         --help)
             echo "Usage: $0 [options]"
             echo "Options:"
-            echo "  --labels       Show labels for information"
-            echo "  --logo         Show only logo"
             echo "  --user         Show user info"
             echo "  --os           Show OS info"
             echo "  --kernel       Show kernel info"
