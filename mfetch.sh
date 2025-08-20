@@ -41,55 +41,6 @@ selected_sections=()
 
 clear
 
-function get_terminal_size() {
-    local width
-    local height
-    width=$(tput cols)
-    height=$(tput lines)
-    echo "$width $height"
-}
-
-function center_text() {
-    text=$@
-
-    cols=$(tput cols)
-
-    IFS=$'\n'$'\r'
-    for line in $(echo -e "$text"); do
-        line_length=$(echo "$line" | sed -r "s/\x1B\[([0-9]{1,1}(;[0-9]{1,2})?)?[m|K]//g" | wc -c)
-        half_of_line_length=$((line_length / 2))
-        is_odd=$((line_length % 2))
-        half_of_line_length=$((half_of_line_length + is_odd))
-        center=$(( (cols / 2) - half_of_line_length ))
-
-        spaces=""
-        for ((i=0; i < center; i++)); do
-            spaces+=" "
-        done
-        printf "%s%s\n" "$spaces" "$line"
-    done
-}
-
-function vertical_center_text() {
-    text=$@
-
-    rows=$(tput lines)
-
-    text_length=$(echo -e "$text" | wc -l)
-    half_of_text_length=$((text_length / 6))
-
-    center=$(( (rows / 6) - half_of_text_length ))
-
-    lines=""
-
-    for ((i=0; i < center; i++)); do
-        lines+="\n"
-    done
-
-    echo -e "${lines}${text}${lines}"
-}
-
-
 function raw_ascii_art() {
     os_name="$(lsb_release -d | cut -f2)"
 
