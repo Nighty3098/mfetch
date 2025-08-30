@@ -169,8 +169,12 @@ function display_info_side_by_side() {
                 fi
                 cpu_cores=$(nproc)
                 cpu_info="$cpu_info ($cpu_cores cores)"
-                info_text+=("cpu: $cpu_info")
-                info_colored+=(" ${YELLOW}cpu: ${WHITE}$cpu_info - $cpu_load%")
+                info_text+=("CPU: $cpu_info")
+                info_colored+=(" ${YELLOW}CPU: ${WHITE}$cpu_info - $cpu_load%")
+                ;;
+            "ip")
+                info_text+=("IP: $(ip route get 1 | awk '{print $7; exit}')")
+                info_colored+=("${RED}IP: ${WHITE}$(ip route get 1 | awk '{print $7; exit}')")
                 ;;
             "colors")
                 info_text+=("        ")
@@ -258,6 +262,10 @@ while [[ "$1" != "" ]]; do
             selected_sections+=("cpu")
             shift
             ;;
+        --ip)
+            selected_sections+=("ip")
+            shift
+            ;;
         --colors)
             selected_sections+=("colors")
             shift
@@ -274,6 +282,7 @@ while [[ "$1" != "" ]]; do
             echo "  --memory       Show memory usage"
             echo "  --cpu          Show cpu info"
             echo "  --colors       Show color palette"
+            echo "  --ip           Show local ip"
             echo "  --help         Show this help message"
             exit 0
             ;;
