@@ -74,7 +74,7 @@ function raw_ascii_art() {
             echo -e "${WHITE_BG}      \  _ \      ${RESET_BG}"
             echo -e "${WHITE_BG}       \___/      ${RESET_BG}"
             echo -e "${WHITE_BG}                  ${RESET_BG}";;
-        "Debian Linux")
+        "Debian Linux" | "Kali GNU/Linux Rolling")
             echo -e "${RED_BG}                  ${RESET_BG}"
             echo -e "${RED_BG}         __       ${RESET_BG}"
             echo -e "${RED_BG}      '/  .\'     ${RESET_BG}"

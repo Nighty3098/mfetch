@@ -32,7 +32,7 @@ else
 fi
 
 case $OS_ID in
-    debian | ubuntu)
+    kali | debian | ubuntu)
         install_packages apt "curl bash pciutils procps "
         ;;
     fedora | redhat | centos)
