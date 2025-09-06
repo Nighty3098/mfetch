@@ -46,6 +46,20 @@ function raw_ascii_art() {
 
     # os_name="Ubuntu Linux"
     case "$os_name" in
+        "Kali GNU/Linux Rolling")
+            echo -e "${WHITE_BG}                  ${RESET_BG}"
+            echo -e "${WHITE_BG}        NO        ${RESET_BG}"
+            echo -e "${WHITE_BG}      SYSTEM      ${RESET_BG}"
+            echo -e "${WHITE_BG}        IS        ${RESET_BG}"
+            echo -e "${WHITE_BG}       SAFE       ${RESET_BG}"
+            echo -e "${WHITE_BG}                  ${RESET_BG}";;
+        "NixOS")
+            echo -e "${CYAN_BG}                  ${RESET_BG}"
+            echo -e "${CYAN_BG}        ==\\      ${RESET_BG}"
+            echo -e "${CYAN_BG}      //   //     ${RESET_BG}"
+            echo -e "${CYAN_BG}      \\ ==       ${RESET_BG}"
+            echo -e "${CYAN_BG}                  ${RESET_BG}"
+            echo -e "${CYAN_BG}                  ${RESET_BG}";;
         "openSUSE Linux" | "openSUSE Tumbleweed" | "openSUSE")
             echo -e "${GREEN_BG}                  ${RESET_BG}"
             echo -e "${GREEN_BG}       ,___       ${RESET_BG}"
@@ -74,7 +88,7 @@ function raw_ascii_art() {
             echo -e "${WHITE_BG}      \  _ \      ${RESET_BG}"
             echo -e "${WHITE_BG}       \___/      ${RESET_BG}"
             echo -e "${WHITE_BG}                  ${RESET_BG}";;
-        "Debian Linux" | "Kali GNU/Linux Rolling")
+        "Debian Linux")
             echo -e "${RED_BG}                  ${RESET_BG}"
             echo -e "${RED_BG}         __       ${RESET_BG}"
             echo -e "${RED_BG}      '/  .\'     ${RESET_BG}"
