@@ -36,104 +36,88 @@ MAGENTA_BG="\e[7;35m"
 CYAN_BG="\e[7;36m"
 WHITE_BG="\e[7;37m"
 
-show_labels=false
+show_labels=true
 selected_sections=()
+DEFAULT_SECTIONS=("os" "kernel" "uptime" "shell" "wm" "battery")
 
 clear
 
-function raw_ascii_art() {
-    os_name="$(lsb_release -d | cut -f2)"
-
-    # os_name="Ubuntu Linux"
-    case "$os_name" in
-        "Kali GNU/Linux Rolling")
-            echo -e "${WHITE_BG}                  ${RESET_BG}"
-            echo -e "${WHITE_BG}        NO        ${RESET_BG}"
-            echo -e "${WHITE_BG}      SYSTEM      ${RESET_BG}"
-            echo -e "${WHITE_BG}        IS        ${RESET_BG}"
-            echo -e "${WHITE_BG}       SAFE       ${RESET_BG}"
-            echo -e "${WHITE_BG}                  ${RESET_BG}";;
-        "NixOS")
-            echo -e "${CYAN_BG}                  ${RESET_BG}"
-            echo -e "${CYAN_BG}        ==\\      ${RESET_BG}"
-            echo -e "${CYAN_BG}      //   //     ${RESET_BG}"
-            echo -e "${CYAN_BG}      \\ ==       ${RESET_BG}"
-            echo -e "${CYAN_BG}                  ${RESET_BG}"
-            echo -e "${CYAN_BG}                  ${RESET_BG}";;
-        "openSUSE Linux" | "openSUSE Tumbleweed" | "openSUSE")
-            echo -e "${GREEN_BG}                  ${RESET_BG}"
-            echo -e "${GREEN_BG}       ,___       ${RESET_BG}"
-            echo -e "${GREEN_BG}     _| () \      ${RESET_BG}"
-            echo -e "${GREEN_BG}    /    --'      ${RESET_BG}"
-            echo -e "${GREEN_BG}    \ ___^/       ${RESET_BG}"
-            echo -e "${GREEN_BG}                  ${RESET_BG}";;
-        "Arch Linux")
-            echo -e "${CYAN_BG}                  ${RESET_BG}"
-            echo -e "${CYAN_BG}                  ${RESET_BG}"
-            echo -e "${CYAN_BG}        /\        ${RESET_BG}"
-            echo -e "${CYAN_BG}       /  \       ${RESET_BG}"
-            echo -e "${CYAN_BG}      /_/\_\      ${RESET_BG}"
-            echo -e "${CYAN_BG}                  ${RESET_BG}";;
-        "Alpine Linux")
-            echo -e "${BLUE_BG}                  ${RESET_BG}"
-            echo -e "${BLUE_BG}                  ${RESET_BG}"
-            echo -e "${BLUE_BG}       /\         ${RESET_BG}"
-            echo -e "${BLUE_BG}      // \/\      ${RESET_BG}"
-            echo -e "${BLUE_BG}     //   \ \     ${RESET_BG}"
-            echo -e "${BLUE_BG}                  ${RESET_BG}";;
-        "Bedrock Linux")
-            echo -e "${WHITE_BG}                  ${RESET_BG}"
-            echo -e "${WHITE_BG}     __           ${RESET_BG}"
-            echo -e "${WHITE_BG}     \ \___       ${RESET_BG}"
-            echo -e "${WHITE_BG}      \  _ \      ${RESET_BG}"
-            echo -e "${WHITE_BG}       \___/      ${RESET_BG}"
-            echo -e "${WHITE_BG}                  ${RESET_BG}";;
-        "Debian Linux")
-            echo -e "${RED_BG}                  ${RESET_BG}"
-            echo -e "${RED_BG}         __       ${RESET_BG}"
-            echo -e "${RED_BG}      '/  .\'     ${RESET_BG}"
-            echo -e "${RED_BG}      |  (_'      ${RESET_BG}"
-            echo -e "${RED_BG}       \          ${RESET_BG}"
-            echo -e "${RED_BG}                  ${RESET_BG}";;
-        "EndeavourOS Linux")
-            echo -e "${MAGENTA_BG}                  ${RESET_BG}"
-            echo -e "${MAGENTA_BG}         __       ${RESET_BG}"
-            echo -e "${MAGENTA_BG}        /  \      ${RESET_BG}"
-            echo -e "${MAGENTA_BG}      /     |     ${RESET_BG}"
-            echo -e "${MAGENTA_BG}     '_____/      ${RESET_BG}"
-            echo -e "${MAGENTA_BG}                  ${RESET_BG}";;
-        "Manjaro Linux")
-            echo -e "${GREEN_BG}                  ${RESET_BG}"
-            echo -e "${GREEN_BG}     ,___,,_,     ${RESET_BG}"
-            echo -e "${GREEN_BG}     | ,_|| |     ${RESET_BG}"
-            echo -e "${GREEN_BG}     | |  | |     ${RESET_BG}"
-            echo -e "${GREEN_BG}     |_|__|_|     ${RESET_BG}"
-            echo -e "${GREEN_BG}                  ${RESET_BG}";;
-        "Ubuntu Linux")
-            echo -e "${YELLOW_BG}                  ${RESET_BG}"
-            echo -e "${YELLOW_BG}        __        ${RESET_BG}"
-            echo -e "${YELLOW_BG}     () -- ()     ${RESET_BG}"
-            echo -e "${YELLOW_BG}     | |  | |     ${RESET_BG}"
-            echo -e "${YELLOW_BG}      \ -- /      ${RESET_BG}"
-            echo -e "${YELLOW_BG}                  ${RESET_BG}";;
-        "MacOS Big Sur" | "MacOS Monterey" | "MacOS catalina" | "macOS high-sierra" | "macOS Mojave" | "macOS mountain lion" | "macOS mojave" | "macOS big sur" | "macOS catalina" | "macOS mojave" | "macOS yosemite")
-            echo -e "${WHITE_BG}                  ${RESET_BG}"
-            echo -e "${WHITE_BG}       _//_       ${RESET_BG}"
-            echo -e "${WHITE_BG}     /  '' \      ${RESET_BG}"
-            echo -e "${WHITE_BG}     |    (       ${RESET_BG}"
-            echo -e "${WHITE_BG}      \____/      ${RESET_BG}"
-            echo -e "${WHITE_BG}                  ${RESET_BG}";;
-        *)
-            echo -e "${MAGENTA_BG}                  ${RESET_BG}"
-            echo -e "${MAGENTA_BG}    ┌──────┐      ${RESET_BG}"
-            echo -e "${MAGENTA_BG}    │ ┌────┴─┐    ${RESET_BG}"
-            echo -e "${MAGENTA_BG}    └─┤  >_  │    ${RESET_BG}"
-            echo -e "${MAGENTA_BG}      └──────┘    ${RESET_BG}"
-            echo -e "${MAGENTA_BG}                  ${RESET_BG}";;
-    esac
-    echo -e "${RESET_BG}             ${RESET_BG}"
+get_os_name() {
+    lsb_release -d 2>/dev/null | cut -f2 || echo "Unknown"
 }
 
+function raw_ascii_art() {
+    local os_name=$(get_os_name)
+    
+    declare -A os_art=(
+        ["Kali GNU/Linux Rolling"]="${WHITE_BG}                  ${RESET_BG}\n${WHITE_BG}        NO        ${RESET_BG}\n${WHITE_BG}      SYSTEM      ${RESET_BG}\n${WHITE_BG}        IS        ${RESET_BG}\n${WHITE_BG}       SAFE       ${RESET_BG}\n${WHITE_BG}                  ${RESET_BG}"
+        ["NixOS"]="${CYAN_BG}                  ${RESET_BG}\n${CYAN_BG}        ==\\      ${RESET_BG}\n${CYAN_BG}      //   //     ${RESET_BG}\n${CYAN_BG}      \\ ==       ${RESET_BG}\n${CYAN_BG}                  ${RESET_BG}\n${CYAN_BG}                  ${RESET_BG}"
+        ["openSUSE Linux"|"openSUSE Tumbleweed"|"openSUSE"]="${GREEN_BG}                  ${RESET_BG}\n${GREEN_BG}       ,___       ${RESET_BG}\n${GREEN_BG}     _| () \      ${RESET_BG}\n${GREEN_BG}    /    --'      ${RESET_BG}\n${GREEN_BG}    \ ___^/       ${RESET_BG}\n${GREEN_BG}                  ${RESET_BG}"
+        ["Arch Linux"]="${CYAN_BG}                  ${RESET_BG}\n${CYAN_BG}                  ${RESET_BG}\n${CYAN_BG}        /\        ${RESET_BG}\n${CYAN_BG}       /  \       ${RESET_BG}\n${CYAN_BG}      /_/\_\      ${RESET_BG}\n${CYAN_BG}                  ${RESET_BG}"
+        ["Alpine Linux"]="${BLUE_BG}                  ${RESET_BG}\n${BLUE_BG}                  ${RESET_BG}\n${BLUE_BG}       /\         ${RESET_BG}\n${BLUE_BG}      // \/\      ${RESET_BG}\n${BLUE_BG}     //   \ \     ${RESET_BG}\n${BLUE_BG}                  ${RESET_BG}"
+        ["Bedrock Linux"]="${WHITE_BG}                  ${RESET_BG}\n${WHITE_BG}     __           ${RESET_BG}\n${WHITE_BG}     \ \___       ${RESET_BG}\n${WHITE_BG}      \  _ \      ${RESET_BG}\n${WHITE_BG}       \___/      ${RESET_BG}\n${WHITE_BG}                  ${RESET_BG}"
+        ["Debian Linux"]="${RED_BG}                  ${RESET_BG}\n${RED_BG}         __       ${RESET_BG}\n${RED_BG}      '/  .\'     ${RESET_BG}\n${RED_BG}      |  (_'      ${RESET_BG}\n${RED_BG}       \          ${RESET_BG}\n${RED_BG}                  ${RESET_BG}"
+        ["EndeavourOS Linux"]="${MAGENTA_BG}                  ${RESET_BG}\n${MAGENTA_BG}         __       ${RESET_BG}\n${MAGENTA_BG}        /  \      ${RESET_BG}\n${MAGENTA_BG}      /     |     ${RESET_BG}\n${MAGENTA_BG}     '_____/      ${RESET_BG}\n${MAGENTA_BG}                  ${RESET_BG}"
+        ["Manjaro Linux"]="${GREEN_BG}                  ${RESET_BG}\n${GREEN_BG}     ,___,,_,     ${RESET_BG}\n${GREEN_BG}     | ,_|| |     ${RESET_BG}\n${GREEN_BG}     | |  | |     ${RESET_BG}\n${GREEN_BG}     |_|__|_|     ${RESET_BG}\n${GREEN_BG}                  ${RESET_BG}"
+        ["Ubuntu Linux"]="${YELLOW_BG}                  ${RESET_BG}\n${YELLOW_BG}        __        ${RESET_BG}\n${YELLOW_BG}     () -- ()     ${RESET_BG}\n${YELLOW_BG}     | |  | |     ${RESET_BG}\n${YELLOW_BG}      \ -- /      ${RESET_BG}\n${YELLOW_BG}                  ${RESET_BG}"
+        ["MacOS"*]="${WHITE_BG}                  ${RESET_BG}\n${WHITE_BG}       _//_       ${RESET_BG}\n${WHITE_BG}     /  '' \      ${RESET_BG}\n${WHITE_BG}     |    (       ${RESET_BG}\n${WHITE_BG}      \____/      ${RESET_BG}\n${WHITE_BG}                  ${RESET_BG}"
+    )
+    
+    if [[ -n "${os_art[$os_name]}" ]]; then
+        echo -e "${os_art[$os_name]}"
+    else
+        echo -e "${MAGENTA_BG}                  ${RESET_BG}\n${MAGENTA_BG}    ┌──────┐      ${RESET_BG}\n${MAGENTA_BG}    │ ┌────┴─┐    ${RESET_BG}\n${MAGENTA_BG}    └─┤  >_  │    ${RESET_BG}\n${MAGENTA_BG}      └──────┘    ${RESET_BG}\n${MAGENTA_BG}                  ${RESET_BG}"
+    fi
+}
+
+generate_section_info() {
+    local section=$1
+    
+    case "$section" in
+        "user")
+            echo "  ${BLUE}$(whoami)@$(hostname)"
+            ;;
+        "os")
+            echo "  OS: ${MAGENTA}$(get_os_name)"
+            ;;
+        "kernel")
+            echo "  KR: ${RED}$(uname -r)"
+            ;;
+        "uptime")
+            IFS=. read -r up _ < /proc/uptime
+            echo "  UP: ${YELLOW}$((up / 60 / 60 / 24))D $((up / 60 / 60 % 24))H $((up / 60 % 60))M"
+            ;;
+        "shell")
+            echo "  SH: ${CYAN}${SHELL##*/}"
+            ;;
+        "wm")
+            echo "  WM: ${BLUE}${XDG_CURRENT_DESKTOP:-Unknown}"
+            ;;
+        "memory")
+            echo "  RM: ${GREEN}$(free -h | awk '/Mem:/ {print $3 "/" $2}')"
+            ;;
+        "cpu")
+            cpu_load=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')
+            cpu_info=$(lscpu | grep "Model name" | cut -d':' -f2 | sed -e 's/^[ \t]*//')
+            [[ -z "$cpu_info" ]] && cpu_info=$(grep "model name" /proc/cpuinfo | head -n 1 | cut -d':' -f2 | sed -e 's/^[ \t]*//')
+            cpu_cores=$(nproc)
+            echo "  CP: ${YELLOW}${cpu_info:0:30} ($cpu_cores cores) - $cpu_load%"
+            ;;
+        "ip")
+            echo "  IP: ${RED}$(ip route get 1 | awk '{print $7; exit}')"
+            ;;
+        "colors")
+            echo "  ${BLACK} ${RED} ${GREEN} ${YELLOW} ${BLUE} ${MAGENTA} ${CYAN} ${WHITE} "
+            ;;
+        "battery")
+            battery_path="/sys/class/power_supply/BAT0"
+            percentage=$(cat "$battery_path/capacity")
+            charge_full=$(cat "$battery_path/charge_full")
+            charge_full_design=$(cat "$battery_path/charge_full_design")
+            capacity=$(( charge_full * 100 / charge_full_design ))
+            echo "  BT: ${BLUE} ${percentage}% - ${capacity}%"
+    esac
+}
 
 function display_info_side_by_side() {
     local art=()
@@ -141,170 +125,74 @@ function display_info_side_by_side() {
         art+=("$line")
     done < <(raw_ascii_art)
     
-    local info_text=()
-    local info_colored=()
+    local info_lines=()
+    local sections_to_display=("${selected_sections[@]}")
     
-    for section in "${selected_sections[@]}"; do
-        case "$section" in
-            "user")
-                info_text+=("$(whoami)@$(hostname)")
-                info_colored+=(" ${BLUE}${WHITE}$(whoami)@$(hostname)")
-                ;;
-            "os")
-                info_text+=("OS: $(lsb_release -d | cut -f2 2>/dev/null || echo "Unknown")")
-                info_colored+=(" ${MAGENTA}OS: ${WHITE}$(lsb_release -d | cut -f2 2>/dev/null || echo "Unknown")")
-                ;;
-            "kernel")
-                info_text+=("KR: $(uname -r)")
-                info_colored+=(" ${RED}KR: ${WHITE}$(uname -r)")
-                ;;
-            "uptime")
-                IFS=. read -r up _ < /proc/uptime;
-                info_text+=("UP: $((up / 60 / 60 / 24))D $((up / 60 / 60 % 24))H $((up / 60 % 60))M")
-                info_colored+=(" ${YELLOW}UP: ${WHITE}$((up / 60 / 60 / 24))D $((up / 60 / 60 % 24))H $((up / 60 % 60))M")
-                ;;
-            "shell")
-                info_text+=("SH: ${SHELL##*/}")
-                info_colored+=(" ${CYAN}SH: ${WHITE}${SHELL##*/}")
-                ;;
-            "wm")
-                info_text+=("WM: ${XDG_CURRENT_DESKTOP:-Unknown}")
-                info_colored+=(" ${BLUE}WM: ${WHITE}${XDG_CURRENT_DESKTOP:-Unknown}")
-                ;;
-            "memory")
-                info_text+=("RM: $(free -h | awk '/Mem:/ {print $3 "/" $2}')")
-                info_colored+=(" ${GREEN}RM: ${WHITE}$(free -h | awk '/Mem:/ {print $3 "/" $2}')")
-                ;;
-            "cpu")
-                cpu_load=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')
-                cpu_info=$(lscpu | grep "Model name" | cut -d':' -f2 | sed -e 's/^[ \t]*//')
-                if [ -z "$cpu_info" ]; then
-                    cpu_info=$(cat /proc/cpuinfo | grep "model name" | head -n 1 | cut -d':' -f2 | sed -e 's/^[ \t]*//')
-                fi
-                cpu_cores=$(nproc)
-                cpu_info="$cpu_info ($cpu_cores cores)"
-                info_text+=("CPU: $cpu_info")
-                info_colored+=(" ${YELLOW}CPU: ${WHITE}$cpu_info - $cpu_load%")
-                ;;
-            "ip")
-                info_text+=("IP: $(ip route get 1 | awk '{print $7; exit}')")
-                info_colored+=("${RED}IP: ${WHITE}$(ip route get 1 | awk '{print $7; exit}')")
-                ;;
-            "colors")
-                info_text+=("        ")
-                info_colored+=(" ${BLACK} ${RED} ${GREEN} ${YELLOW} ${BLUE} ${MAGENTA} ${CYAN} ${WHITE} ")
-                ;;
-        esac
+    [[ ${#sections_to_display[@]} -eq 0 ]] && sections_to_display=("${DEFAULT_SECTIONS[@]}")
+    
+    for section in "${sections_to_display[@]}"; do
+        info_lines+=("$(generate_section_info "$section")")
     done
-    
-    if [ ${#selected_sections[@]} -eq 0 ]; then
-      IFS=. read -r up _ < /proc/uptime;
-        info_text=(
-            "OS: $(lsb_release -d | cut -f2 2>/dev/null || echo "Unknown")"
-            "KR: $(uname -r)"
-            "UP: $((up / 60 / 60 / 24))D $((up / 60 / 60 % 24))H $((up / 60 % 60))M"
-            "SH: ${SHELL##*/}"
-            "WM: ${XDG_CURRENT_DESKTOP:-Unknown}"
-            "        "
-        )
-        info_colored=(
-            " ${MAGENTA}OS: ${WHITE}$(lsb_release -d | cut -f2 2>/dev/null || echo "Unknown")"
-            " ${RED}KR: ${WHITE}$(uname -r)"
-            " ${GREEN}UP: ${WHITE}$((up / 60 / 60 / 24))D $((up / 60 / 60 % 24))H $((up / 60 % 60))M"
-            " ${BLUE}SH: ${WHITE}${SHELL##*/}"
-            " ${YELLOW}WM: ${WHITE}${XDG_CURRENT_DESKTOP:-Unknown}"
-            " ${BLACK}  ${RED}  ${GREEN}  ${YELLOW}  ${BLUE}  ${MAGENTA}  ${CYAN}  ${WHITE}  "
-        )
-    fi
     
     local art_width=0
     for line in "${art[@]}"; do
-        line_plain=$(echo -e " $line " | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g")
+        line_plain=$(echo -e "$line" | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g")
         (( ${#line_plain} > art_width )) && art_width=${#line_plain}
     done
     
     for ((i=0; i<${#art[@]}; i++)); do
-        local info_plain="${info_text[$i]-}"
-        local info_colored_line="${info_colored[$i]-}"
-        
+        local info_line="${info_lines[$i]-}"
         local art_line_plain=$(echo -e "${art[$i]}" | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g")
-        local current_padding=$((art_width - ${#art_line_plain}))
+        local padding=$((art_width - ${#art_line_plain}))
         
-        printf " %s%*s%b\n" "${art[$i]}" "$current_padding" "" "$info_colored_line"
+        printf " %s%*s%b\n" "${art[$i]}" "$padding" "" "$info_line"
     done
 }
 
-while [[ "$1" != "" ]]; do
+declare -A valid_options=(
+    ["--user"]="user"
+    ["--os"]="os" 
+    ["--kernel"]="kernel"
+    ["--uptime"]="uptime"
+    ["--shell"]="shell"
+    ["--wm"]="wm"
+    ["--memory"]="memory"
+    ["--cpu"]="cpu"
+    ["--ip"]="ip"
+    ["--colors"]="colors"
+)
+
+while [[ $# -gt 0 ]]; do
     case $1 in
         --labels)
             show_labels=true
-            shift
             ;;
         --logo)
             raw_ascii_art
             exit 0
             ;;
-        --user)
-            selected_sections+=("user")
-            shift
-            ;;
-        --os)
-            selected_sections+=("os")
-            shift
-            ;;
-        --kernel)
-            selected_sections+=("kernel")
-            shift
-            ;;
-        --uptime)
-            selected_sections+=("uptime")
-            shift
-            ;;
-        --shell)
-            selected_sections+=("shell")
-            shift
-            ;;
-        --wm)
-            selected_sections+=("wm")
-            shift
-            ;;
-        --memory)
-            selected_sections+=("memory")
-            shift
-            ;;
-        --cpu)
-            selected_sections+=("cpu")
-            shift
-            ;;
-        --ip)
-            selected_sections+=("ip")
-            shift
-            ;;
-        --colors)
-            selected_sections+=("colors")
-            shift
-            ;;
         --help)
             echo "Usage: $0 [options]"
             echo "Options:"
-            echo "  --user         Show user info"
-            echo "  --os           Show OS info"
-            echo "  --kernel       Show kernel info"
-            echo "  --uptime       Show uptime"
-            echo "  --shell        Show shell info"
-            echo "  --wm           Show window manager info"
-            echo "  --memory       Show memory usage"
-            echo "  --cpu          Show cpu info"
-            echo "  --colors       Show color palette"
-            echo "  --ip           Show local ip"
+            for option in "${!valid_options[@]}"; do
+                echo "  $option         Show ${valid_options[$option]} info"
+            done
             echo "  --help         Show this help message"
             exit 0
             ;;
         *)
-            echo "Unknown option: $1"
-            exit 1
+            if [[ -n "${valid_options[$1]}" ]]; then
+                selected_sections+=("${valid_options[$1]}")
+            else
+                echo "Unknown option: $1"
+                exit 1
+            fi
             ;;
     esac
+    shift
 done
 
+
 display_info_side_by_side
+
+echo ""
