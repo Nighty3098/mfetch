@@ -115,7 +115,7 @@ generate_section_info() {
             charge_full=$(cat "$battery_path/charge_full")
             charge_full_design=$(cat "$battery_path/charge_full_design")
             capacity=$(( charge_full * 100 / charge_full_design ))
-            echo "  BT: ${BLUE} ${percentage}% - ${capacity}%"
+            echo "  BT: ${BLUE}${percentage}% - ${capacity}%"
     esac
 }
 
