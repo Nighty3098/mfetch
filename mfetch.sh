@@ -38,7 +38,7 @@ WHITE_BG="\e[7;37m"
 
 show_labels=true
 selected_sections=()
-DEFAULT_SECTIONS=("os" "kernel" "uptime" "shell" "wm" "battery")
+DEFAULT_SECTIONS=("os" "kernel" "uptime" "shell" "wm" "colors")
 
 clear
 
@@ -160,6 +160,7 @@ declare -A valid_options=(
     ["--cpu"]="cpu"
     ["--ip"]="ip"
     ["--colors"]="colors"
+    ["--battery"]="battery"
 )
 
 while [[ $# -gt 0 ]]; do
