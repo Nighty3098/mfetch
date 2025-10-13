@@ -107,7 +107,7 @@ generate_section_info() {
             echo "  IP: ${RED}$(ip route get 1 | awk '{print $7; exit}')"
             ;;
         "colors")
-            echo "  ${BLACK} ${RED} ${GREEN} ${YELLOW} ${BLUE} ${MAGENTA} ${CYAN} ${WHITE} "
+            echo "  ${BLACK_BG}   ${RED_BG}   ${GREEN_BG}   ${YELLOW_BG}   ${BLUE_BG}   ${MAGENTA_BG}   ${CYAN_BG}   ${WHITE_BG}   "
             ;;
         "battery")
             battery_path="/sys/class/power_supply/BAT0"
