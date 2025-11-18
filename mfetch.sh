@@ -50,23 +50,23 @@ function raw_ascii_art() {
     local os_name=$(get_os_name)
     
     declare -A os_art=(
-        ["Kali GNU/Linux Rolling"]="${WHITE_BG}                  ${RESET_BG}\n${WHITE_BG}        NO        ${RESET_BG}\n${WHITE_BG}      SYSTEM      ${RESET_BG}\n${WHITE_BG}        IS        ${RESET_BG}\n${WHITE_BG}       SAFE       ${RESET_BG}\n${WHITE_BG}                  ${RESET_BG}"
-        ["NixOS"]="${CYAN_BG}                  ${RESET_BG}\n${CYAN_BG}        ==\\      ${RESET_BG}\n${CYAN_BG}      //   //     ${RESET_BG}\n${CYAN_BG}      \\ ==       ${RESET_BG}\n${CYAN_BG}                  ${RESET_BG}\n${CYAN_BG}                  ${RESET_BG}"
-        ["openSUSE Linux"|"openSUSE Tumbleweed"|"openSUSE"]="${GREEN_BG}                  ${RESET_BG}\n${GREEN_BG}       ,___       ${RESET_BG}\n${GREEN_BG}     _| () \      ${RESET_BG}\n${GREEN_BG}    /    --'      ${RESET_BG}\n${GREEN_BG}    \ ___^/       ${RESET_BG}\n${GREEN_BG}                  ${RESET_BG}"
-        ["Arch Linux"]="${CYAN_BG}                  ${RESET_BG}\n${CYAN_BG}                  ${RESET_BG}\n${CYAN_BG}        /\        ${RESET_BG}\n${CYAN_BG}       /  \       ${RESET_BG}\n${CYAN_BG}      /_/\_\      ${RESET_BG}\n${CYAN_BG}                  ${RESET_BG}"
-        ["Alpine Linux"]="${BLUE_BG}                  ${RESET_BG}\n${BLUE_BG}                  ${RESET_BG}\n${BLUE_BG}       /\         ${RESET_BG}\n${BLUE_BG}      // \/\      ${RESET_BG}\n${BLUE_BG}     //   \ \     ${RESET_BG}\n${BLUE_BG}                  ${RESET_BG}"
-        ["Bedrock Linux"]="${WHITE_BG}                  ${RESET_BG}\n${WHITE_BG}     __           ${RESET_BG}\n${WHITE_BG}     \ \___       ${RESET_BG}\n${WHITE_BG}      \  _ \      ${RESET_BG}\n${WHITE_BG}       \___/      ${RESET_BG}\n${WHITE_BG}                  ${RESET_BG}"
-        ["Debian Linux"]="${RED_BG}                  ${RESET_BG}\n${RED_BG}         __       ${RESET_BG}\n${RED_BG}      '/  .\'     ${RESET_BG}\n${RED_BG}      |  (_'      ${RESET_BG}\n${RED_BG}       \          ${RESET_BG}\n${RED_BG}                  ${RESET_BG}"
-        ["EndeavourOS Linux"]="${MAGENTA_BG}                  ${RESET_BG}\n${MAGENTA_BG}         __       ${RESET_BG}\n${MAGENTA_BG}        /  \      ${RESET_BG}\n${MAGENTA_BG}      /     |     ${RESET_BG}\n${MAGENTA_BG}     '_____/      ${RESET_BG}\n${MAGENTA_BG}                  ${RESET_BG}"
-        ["Manjaro Linux"]="${GREEN_BG}                  ${RESET_BG}\n${GREEN_BG}     ,___,,_,     ${RESET_BG}\n${GREEN_BG}     | ,_|| |     ${RESET_BG}\n${GREEN_BG}     | |  | |     ${RESET_BG}\n${GREEN_BG}     |_|__|_|     ${RESET_BG}\n${GREEN_BG}                  ${RESET_BG}"
-        ["Ubuntu Linux"]="${YELLOW_BG}                  ${RESET_BG}\n${YELLOW_BG}        __        ${RESET_BG}\n${YELLOW_BG}     () -- ()     ${RESET_BG}\n${YELLOW_BG}     | |  | |     ${RESET_BG}\n${YELLOW_BG}      \ -- /      ${RESET_BG}\n${YELLOW_BG}                  ${RESET_BG}"
-        ["MacOS"*]="${WHITE_BG}                  ${RESET_BG}\n${WHITE_BG}       _//_       ${RESET_BG}\n${WHITE_BG}     /  '' \      ${RESET_BG}\n${WHITE_BG}     |    (       ${RESET_BG}\n${WHITE_BG}      \____/      ${RESET_BG}\n${WHITE_BG}                  ${RESET_BG}"
+        ["Kali GNU/Linux Rolling"]="${WHITE}                  ${RESET}\n${WHITE}        NO        ${RESET}\n${WHITE}      SYSTEM      ${RESET}\n${WHITE}        IS        ${RESET}\n${WHITE}       SAFE       ${RESET}\n${WHITE}                  ${RESET}"
+        ["NixOS"]="${CYAN}                  ${RESET}\n${CYAN}        ==\\      ${RESET}\n${CYAN}      //   //     ${RESET}\n${CYAN}      \\ ==       ${RESET}\n${CYAN}                  ${RESET}\n${CYAN}                  ${RESET}"
+        ["openSUSE Linux"|"openSUSE Tumbleweed"|"openSUSE"]="${GREEN}                  ${RESET}\n${GREEN}       ,___       ${RESET}\n${GREEN}     _| () \      ${RESET}\n${GREEN}    /    --'      ${RESET}\n${GREEN}    \ ___^/       ${RESET}\n${GREEN}                  ${RESET}"
+        ["Arch Linux"]="${CYAN}                  ${RESET}\n${CYAN}                  ${RESET}\n${CYAN}        /\        ${RESET}\n${CYAN}       /  \       ${RESET}\n${CYAN}      /_/\_\      ${RESET}\n${CYAN}                  ${RESET}"
+        ["Alpine Linux"]="${BLUE}                  ${RESET}\n${BLUE}                  ${RESET}\n${BLUE}       /\         ${RESET}\n${BLUE}      // \/\      ${RESET}\n${BLUE}     //   \ \     ${RESET}\n${BLUE}                  ${RESET}"
+        ["Bedrock Linux"]="${WHITE}                  ${RESET}\n${WHITE}     __           ${RESET}\n${WHITE}     \ \___       ${RESET}\n${WHITE}      \  _ \      ${RESET}\n${WHITE}       \___/      ${RESET}\n${WHITE}                  ${RESET}"
+        ["Debian Linux"]="${RED}                  ${RESET}\n${RED}         __       ${RESET}\n${RED}      '/  .\'     ${RESET}\n${RED}      |  (_'      ${RESET}\n${RED}       \          ${RESET}\n${RED}                  ${RESET}"
+        ["EndeavourOS Linux"]="${MAGENTA}                  ${RESET}\n${MAGENTA}         __       ${RESET}\n${MAGENTA}        /  \      ${RESET}\n${MAGENTA}      /     |     ${RESET}\n${MAGENTA}     '_____/      ${RESET}\n${MAGENTA}                  ${RESET}"
+        ["Manjaro Linux"]="${GREEN}                  ${RESET}\n${GREEN}     ,___,,_,     ${RESET}\n${GREEN}     | ,_|| |     ${RESET}\n${GREEN}     | |  | |     ${RESET}\n${GREEN}     |_|__|_|     ${RESET}\n${GREEN}                  ${RESET}"
+        ["Ubuntu Linux"]="${YELLOW}                  ${RESET}\n${YELLOW}        __        ${RESET}\n${YELLOW}     () -- ()     ${RESET}\n${YELLOW}     | |  | |     ${RESET}\n${YELLOW}      \ -- /      ${RESET}\n${YELLOW}                  ${RESET}"
+        ["MacOS"*]="${WHITE}                  ${RESET}\n${WHITE}       _//_       ${RESET}\n${WHITE}     /  '' \      ${RESET}\n${WHITE}     |    (       ${RESET}\n${WHITE}      \____/      ${RESET}\n${WHITE}                  ${RESET}"
     )
     
     if [[ -n "${os_art[$os_name]}" ]]; then
         echo -e "${os_art[$os_name]}"
     else
-        echo -e "${MAGENTA_BG}                  ${RESET_BG}\n${MAGENTA_BG}    ┌──────┐      ${RESET_BG}\n${MAGENTA_BG}    │ ┌────┴─┐    ${RESET_BG}\n${MAGENTA_BG}    └─┤  >_  │    ${RESET_BG}\n${MAGENTA_BG}      └──────┘    ${RESET_BG}\n${MAGENTA_BG}                  ${RESET_BG}"
+        echo -e "${MAGENTA}                  ${RESET}\n${MAGENTA}    ┌──────┐      ${RESET}\n${MAGENTA}    │ ┌────┴─┐    ${RESET}\n${MAGENTA}    └─┤  >_  │    ${RESET}\n${MAGENTA}      └──────┘    ${RESET}\n${MAGENTA}                  ${RESET}"
     fi
 }
 
