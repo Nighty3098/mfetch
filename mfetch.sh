@@ -24,6 +24,7 @@ YELLOW="\e[1;33m"
 BLUE="\e[1;34m"
 MAGENTA="\e[1;35m"
 CYAN="\e[1;36m"
+TURQUOISE="\e[1;96m"
 WHITE="\e[1;37m"
 
 RESET_BG="\e[7;0m"
@@ -34,6 +35,7 @@ YELLOW_BG="\e[7;33m"
 BLUE_BG="\e[7;34m"
 MAGENTA_BG="\e[7;35m"
 CYAN_BG="\e[7;36m"
+TURQUOISE_BG="\e[7;96m"
 WHITE_BG="\e[7;37m"
 
 show_labels=true
@@ -54,6 +56,7 @@ function raw_ascii_art() {
         ["NixOS"]="${CYAN}                  ${RESET}\n${CYAN}        ==\\      ${RESET}\n${CYAN}      //   //     ${RESET}\n${CYAN}      \\ ==       ${RESET}\n${CYAN}                  ${RESET}\n${CYAN}                  ${RESET}"
         ["openSUSE Linux"|"openSUSE Tumbleweed"|"openSUSE"]="${GREEN}                  ${RESET}\n${GREEN}       ,___       ${RESET}\n${GREEN}     _| () \      ${RESET}\n${GREEN}    /    --'      ${RESET}\n${GREEN}    \ ___^/       ${RESET}\n${GREEN}                  ${RESET}"
         ["Arch Linux"]="${CYAN}                  ${RESET}\n${CYAN}                  ${RESET}\n${CYAN}        /\        ${RESET}\n${CYAN}       /  \       ${RESET}\n${CYAN}      /_/\_\      ${RESET}\n${CYAN}                  ${RESET}"
+        ["CachyOS"]="${TURQUOISE}       ______${RESET}\n${TURQUOISE}      /  ___/${RESET}\n${TURQUOISE}     /  /${RESET}\n${TURQUOISE}     \\  \\___ o${RESET}\n${TURQUOISE}      \\_____/  ${RESET}"
         ["Alpine Linux"]="${BLUE}                  ${RESET}\n${BLUE}                  ${RESET}\n${BLUE}       /\         ${RESET}\n${BLUE}      // \/\      ${RESET}\n${BLUE}     //   \ \     ${RESET}\n${BLUE}                  ${RESET}"
         ["Bedrock Linux"]="${WHITE}                  ${RESET}\n${WHITE}     __           ${RESET}\n${WHITE}     \ \___       ${RESET}\n${WHITE}      \  _ \      ${RESET}\n${WHITE}       \___/      ${RESET}\n${WHITE}                  ${RESET}"
         ["Debian Linux"]="${RED}                  ${RESET}\n${RED}         __       ${RESET}\n${RED}      '/  .\'     ${RESET}\n${RED}      |  (_'      ${RESET}\n${RED}       \          ${RESET}\n${RED}                  ${RESET}"

@@ -117,6 +117,7 @@ YELLOW="\e[1;33m"
 BLUE="\e[1;34m"
 MAGENTA="\e[1;35m"
 CYAN="\e[1;36m"
+TURQUOISE="\e[1;96m"
 WHITE="\e[1;37m"
 
 # Background Colors
@@ -141,6 +142,7 @@ To add support for a new Linux distribution, add a new case to the `raw_ascii_ar
 The script automatically detects and displays appropriate ASCII art for:
 
 - Arch Linux
+- CachyOS
 - Debian
 - Ubuntu
 - openSUSE
